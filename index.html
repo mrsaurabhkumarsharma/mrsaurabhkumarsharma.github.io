@@ -149,8 +149,8 @@ section.sec{padding:clamp(48px,7vw,96px) 0 0}
 .head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 24px;margin-bottom:28px}
 h2{font-size:clamp(32px,4vw,48px);font-weight:700}
 .head p{margin:0;color:var(--muted);max-width:52ch}
-.js .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-.js .rv.in{opacity:1;transform:none}
+.js .rv{opacity:0;translate:0 22px;transition:opacity .8s cubic-bezier(.2,.7,.2,1),translate .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;translate:none}
 
 /* Impact */
 .impact{background:var(--surface);border:1px solid var(--rule);border-radius:24px;padding:clamp(20px,3vw,36px);box-shadow:var(--shadow);display:grid;gap:22px}
@@ -167,7 +167,7 @@ h2{font-size:clamp(32px,4vw,48px);font-weight:700}
 
 /* Work */
 .cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.case{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:14px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s;isolation:isolate}
+.case{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:14px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s,opacity .8s,translate .8s cubic-bezier(.2,.7,.2,1);isolation:isolate}
 .case::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%)}
 .case:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 45%,var(--rule));box-shadow:var(--shadow)}
 .case:hover::before{opacity:1}
@@ -185,8 +185,54 @@ h2{font-size:clamp(32px,4vw,48px);font-weight:700}
 .res{text-align:right}
 .res b{display:block;font-family:var(--display);font-size:34px;font-weight:700;line-height:1;color:var(--accent);letter-spacing:-.02em;white-space:nowrap}
 .res small{font-size:13px;color:var(--muted)}
+.case.span{grid-column:1 / -1}
 .also{margin:20px 0 0;color:var(--muted);max-width:80ch}
 .also b{color:var(--ink);font-weight:600}
+.also a{color:var(--accent);font-weight:600;text-underline-offset:3px}
+
+/* Projects */
+.feat{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);background:var(--band);color:var(--band-ink);border-radius:28px;padding:clamp(22px,3.5vw,44px);position:relative;overflow:hidden;isolation:isolate}
+.feat::before{content:"";position:absolute;z-index:-1;width:460px;height:460px;left:-160px;bottom:-240px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--support) 35%,transparent),transparent 70%)}
+.feat::after{content:"";position:absolute;z-index:-1;width:380px;height:380px;right:-120px;top:-180px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent-2) 28%,transparent),transparent 70%)}
+.ftag{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:14px;font-weight:500}
+.ftag span:first-child{background:var(--accent-2);color:#fff;padding:4px 12px;border-radius:999px;font-weight:600}
+.ftag .ver{color:var(--band-muted)}
+.feat h3{font-size:clamp(26px,3vw,36px);font-weight:700;margin:16px 0 12px}
+.feat p{margin:0 0 18px;color:var(--band-muted);max-width:56ch}
+.feat .chip{background:rgba(255,255,255,.1);color:var(--band-ink)}
+.pipe{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:24px;position:relative}
+.pipe span{position:relative;font-size:13.5px;font-weight:600;padding:9px 14px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+.pipe span:not(:last-child)::after{content:"";position:absolute;left:100%;top:50%;width:28px;height:2px;background:linear-gradient(90deg,var(--support) 0 40%,transparent 40%) 0 0/12px 2px;animation:flowx .8s linear infinite}
+@keyframes flowx{to{background-position:12px 0}}
+.pipe span:last-child{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.flist{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:center}
+.flist li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px 14px 46px;font-size:14.5px;color:var(--band-muted);position:relative;transition:background-color .25s,transform .25s}
+.flist li:hover{background:rgba(255,255,255,.1);transform:translateX(4px)}
+.flist li::before{content:"";position:absolute;left:16px;top:17px;width:18px;height:18px;border-radius:6px;background:var(--support) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2306222e' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat}
+.flist b{display:block;color:var(--band-ink);font-weight:600;font-size:15px;margin-bottom:2px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 18px}
+.filters button{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--muted);font:500 14.5px var(--body);cursor:pointer;transition:background-color .25s,color .25s,border-color .25s}
+.filters button:hover{color:var(--ink);border-color:var(--support)}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.proj{background:var(--surface);border:1px solid var(--rule);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s,opacity .8s,translate .8s cubic-bezier(.2,.7,.2,1)}
+.proj:hover{transform:translateY(-4px);border-color:var(--support);box-shadow:var(--shadow)}
+.proj.hide{display:none}
+.proj.pop{animation:pop .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.pico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;transition:transform .35s}
+.proj:hover .pico{transform:rotate(-8deg) scale(1.06)}
+.pico svg{width:22px;height:22px}
+.pico.ai{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.pico.sys{background:color-mix(in srgb,var(--support) 16%,transparent);color:var(--support)}
+.pico.web{background:var(--soft);color:var(--ink)}
+.pcat{font-size:13px;font-weight:500;color:var(--muted);margin-top:4px}
+.proj h3{font-size:20px;font-weight:600}
+.proj p{margin:0;color:var(--muted);font-size:14.5px}
+.proj ul{margin:4px 0 6px;padding:0;list-style:none;display:grid;gap:6px}
+.proj li{font-size:14px;padding-left:20px;position:relative}
+.proj li::before{content:"";position:absolute;left:2px;top:.6em;width:8px;height:8px;border-radius:50%;border:2px solid var(--support)}
+.proj .chips{margin-top:auto;padding-top:12px;border-top:1px dashed var(--rule)}
 
 /* Career */
 .career{background:var(--surface);border:1px solid var(--rule);border-radius:24px;padding:clamp(18px,3vw,32px);box-shadow:var(--shadow)}
@@ -236,6 +282,8 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
 
 @media (max-width:900px){
   .hero{grid-template-columns:minmax(0,1fr)}
+  .feat{grid-template-columns:minmax(0,1fr)}
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpis{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:26px}
   .kpi:nth-child(4){border-left:0;padding-left:0}
   .two{grid-template-columns:minmax(0,1fr)}
@@ -247,6 +295,9 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
   .kpi:nth-child(odd){border-left:0;padding-left:0}
   .kpi:nth-child(4){border-left:1px solid rgba(255,255,255,.12);padding-left:clamp(12px,2vw,24px)}
   .cases{grid-template-columns:minmax(0,1fr)}
+  .pgrid{grid-template-columns:minmax(0,1fr)}
+  .pipe{gap:10px 20px}
+  .pipe span:not(:last-child)::after{width:20px}
   .irow{grid-template-columns:minmax(0,1fr) 64px;gap:8px 12px}
   .irow .lbl{grid-column:1 / -1}
   .grow,.gaxis{grid-template-columns:minmax(0,1fr);gap:6px}
@@ -258,7 +309,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
   html{scroll-behavior:auto}
-  .js .rv{opacity:1;transform:none}
+  .js .rv{opacity:1;translate:none}
   .js .impact:not(.in) .bar i,.js .career:not(.in) .gbar{transform:none}
 }
 </style>
@@ -272,6 +323,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
     <div class="links">
       <a href="#impact">Impact</a>
       <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
       <a href="#career">Career</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
@@ -400,14 +452,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <p class="built"><strong>What I built:</strong> Interactive dashboards on purpose-built data models, plus custom business software built end to end: front end, back end and database.</p>
         <div class="bottom"><div class="chips"><span class="chip">Power BI</span><span class="chip">Data modeling</span><span class="chip">Full stack</span></div><div class="res"><b>4.9★</b><small>client rating, +10% KPI tracking</small></div></div>
       </article>
-      <article class="case rv">
-        <div class="org"><span>Full-stack project</span></div>
-        <h3>Serverless lead management system</h3>
-        <p>Leads arrived from many channels with no single log or owner.</p>
-        <p class="built"><strong>What I built:</strong> A validated web form posting JSON to a Google Apps Script backend that timestamps each lead and logs it to a structured sheet for delegation.</p>
-        <div class="bottom"><div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">Apps Script</span></div><div class="res"><b>0</b><small>servers to run or maintain</small></div></div>
-      </article>
-      <article class="case rv">
+      <article class="case span rv">
         <div class="org"><span>Paytm, 2018–20</span></div>
         <h3>Performance dashboards and analysis</h3>
         <p>Non-technical teams needed marketing and operations data they could read without an analyst.</p>
@@ -415,7 +460,88 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <div class="bottom"><div class="chips"><span class="chip">SQL</span><span class="chip">Excel</span><span class="chip">EDA</span></div><div class="res"><b>+5%</b><small>product engagement</small></div></div>
       </article>
     </div>
-    <p class="also rv"><b>20 major systems in total</b>, including employee, lead, work, process, inventory and task management systems, plus a workflow management system integrated with accounting.</p>
+    <p class="also rv"><b>20 major systems in total</b>, including employee, lead, work, process, inventory and task management systems, plus a workflow management system integrated with accounting. <a href="#projects">See the projects below.</a></p>
+  </section>
+
+  <section class="sec" id="projects" aria-labelledby="projects-h">
+    <div class="head rv"><h2 id="projects-h">Projects</h2><p>Systems I designed and built myself, from the first sheet to the finished app. Most run every day inside the teams they were built for.</p></div>
+
+    <article class="feat rv">
+      <div class="feat-text">
+        <div class="ftag"><span>Featured project</span><span class="ver">Version 23.6, in daily use</span></div>
+        <h3>Warehouse inventory management system</h3>
+        <p>A multi-warehouse stock system for Abhaya International. Staff log purchases, sales, returns and transfers through a web entry form, and every movement updates live stock by warehouse, SKU and batch on its own.</p>
+        <div class="chips"><span class="chip">Google Apps Script</span><span class="chip">Google Sheets</span><span class="chip">HTML/JavaScript</span><span class="chip">Dashboards</span></div>
+        <div class="pipe" aria-label="How it works: entry form, master stock, history logs, admin dashboard">
+          <span>Entry form</span><span>Master stock</span><span>History logs</span><span>Admin dashboard</span>
+        </div>
+      </div>
+      <ul class="flist">
+        <li><b>Live master stock</b>Tracks every item by warehouse, SKU and batch, so stock is always current without manual counts.</li>
+        <li><b>Automatic purchase and sales logs</b>Every inbound and outbound entry, including returns, freight and invoice details, is recorded from the web form.</li>
+        <li><b>Damage tracking</b>One entry moves items from fresh to damaged stock and updates the totals.</li>
+        <li><b>Inter-warehouse transfers</b>Transfers stay pending until the receiving warehouse confirms them, so nothing goes missing in transit.</li>
+        <li><b>Admin dashboard and help tickets</b>A web dashboard with zone-based access for each warehouse, plus a built-in help ticket form.</li>
+      </ul>
+    </article>
+
+    <div class="filters rv" role="group" aria-label="Filter projects">
+      <button type="button" class="on" data-f="all" aria-pressed="true">All projects</button>
+      <button type="button" data-f="ai" aria-pressed="false">AI &amp; automation</button>
+      <button type="button" data-f="sys" aria-pressed="false">Business systems</button>
+      <button type="button" data-f="web" aria-pressed="false">Web apps</button>
+    </div>
+
+    <div class="pgrid" id="pgrid">
+      <article class="proj rv" data-cat="ai">
+        <div class="pico ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 16-5-5-8 8"/></svg></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>AI image-to-report automation</h3>
+        <p>A Python tool that reads captured images with vision AI and turns them into structured reports, with no manual typing.</p>
+        <ul><li>Vision AI APIs (OpenAI and Gemini) pull the data out of each image</li><li>Saves results as Excel or SQL reports</li><li>Sends email alerts automatically when reports are ready</li></ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Vision AI APIs</span><span class="chip">SQL</span><span class="chip">Excel</span></div>
+      </article>
+      <article class="proj rv" data-cat="ai">
+        <div class="pico ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>Task delegation and follow-up system</h3>
+        <p>Managers assign work in one place, and the system chases it until it is done.</p>
+        <ul><li>Each task gets an ID, owner, department and due date</li><li>Every date change is logged with the new date and the reason</li><li>Automatic email, WhatsApp and Google Chat alerts for pending tasks</li></ul>
+        <div class="chips"><span class="chip">Apps Script</span><span class="chip">Google Sheets</span><span class="chip">Email alerts</span><span class="chip">WhatsApp</span></div>
+      </article>
+      <article class="proj rv" data-cat="sys">
+        <div class="pico sys"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4M17.5 10v4"/></svg></div>
+        <span class="pcat">Business systems</span>
+        <h3>Workflow management system (FMS)</h3>
+        <p>An end-to-end workflow planning system connected to accounting, so work and money are tracked in the same place.</p>
+        <ul><li>Standard process stages for every department</li><li>Managers see the live status of every task</li><li>Integrated with the accounting workflow</li></ul>
+        <div class="chips"><span class="chip">Process design</span><span class="chip">Apps Script</span><span class="chip">Accounting</span></div>
+      </article>
+      <article class="proj rv" data-cat="sys">
+        <div class="pico sys"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11h4M17 15h4M19 7h2"/></svg></div>
+        <span class="pcat">Business systems</span>
+        <h3>Employee management system</h3>
+        <p>One employee master that every other system and report reads from, combined with the inventory modules for centralised reporting.</p>
+        <ul><li>Employee codes, departments, designations and reporting heads</li><li>Work mode, location and office timings in one record</li><li>Feeds centralised reports across departments</li></ul>
+        <div class="chips"><span class="chip">Google Sheets</span><span class="chip">Apps Script</span><span class="chip">Reporting</span></div>
+      </article>
+      <article class="proj rv" data-cat="web">
+        <div class="pico web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4z"/><path d="M8 20h8M12 16v4"/><path d="M8 9h8M8 12h5"/></svg></div>
+        <span class="pcat">Web apps</span>
+        <h3>Serverless lead management system</h3>
+        <p>Leads arrived from many channels with no single log or owner. Now every lead lands in one place with a timestamp and an owner.</p>
+        <ul><li>Validated web form posts JSON to a Google Apps Script backend</li><li>Each lead is timestamped and logged to a structured sheet</li><li>Leads are assigned to the sales team for follow-up</li></ul>
+        <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">Apps Script</span><span class="chip">0 servers</span></div>
+      </article>
+      <article class="proj rv" data-cat="web">
+        <div class="pico web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></div>
+        <span class="pcat">Web apps</span>
+        <h3>Custom web CRM and ERP tools</h3>
+        <p>Lightweight business apps built in-house to replace paid third-party software licences.</p>
+        <ul><li>HTML and JavaScript front ends on Google Apps Script back ends</li><li>Built around each team's real process instead of a generic template</li><li>Removes recurring licence costs</li></ul>
+        <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">Apps Script</span><span class="chip">REST APIs</span></div>
+      </article>
+    </div>
   </section>
 
   <section class="sec" id="career" aria-labelledby="career-h">
@@ -596,6 +722,20 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
   },{threshold:.18,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.rv,.band').forEach(el=>io.observe(el));
   setTimeout(()=>document.querySelectorAll('.rv').forEach(el=>el.classList.add('in')),6000);
+
+  /* Project filters */
+  const fbtns=[...document.querySelectorAll('.filters button')];
+  const projs=[...document.querySelectorAll('.proj')];
+  fbtns.forEach(b=>b.addEventListener('click',()=>{
+    const f=b.dataset.f;
+    fbtns.forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false');});
+    projs.forEach((p,i)=>{
+      const show=f==='all'||p.dataset.cat===f;
+      p.classList.toggle('hide',!show);
+      p.classList.remove('pop');
+      if(show&&!reduce){void p.offsetWidth;p.style.animationDelay=(i%3*0.06)+'s';p.classList.add('in','pop');}
+    });
+  }));
 
   /* Spotlight on work cards */
   document.querySelectorAll('.case').forEach(card=>{
