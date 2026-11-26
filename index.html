@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saurabh Sharma Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: the page reads like an MIS report — a title block, a KPI strip, an impact chart, case-study rows and a Gantt of the career. */
+:root{
+  --bg:#f5f6f8;
+  --surface:#ffffff;
+  --ink:#16212c;
+  --muted:#5a6876;
+  --rule:#d8dde3;
+  --accent:#d99a00;
+  --accent-soft:#fbf1d6;
+  --accent-ink:#1d1500;
+  --bar-muted:#c7ced6;
+  --font-display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --font-body:"IBM Plex Sans",-apple-system,"Segoe UI",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f151c; --surface:#16202a; --ink:#e7ecf1; --muted:#97a5b3; --rule:#2a3846;
+    --accent:#f0bf45; --accent-soft:#2b2412; --accent-ink:#1d1500; --bar-muted:#3a4a5a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f151c; --surface:#16202a; --ink:#e7ecf1; --muted:#97a5b3; --rule:#2a3846;
+  --accent:#f0bf45; --accent-soft:#2b2412; --accent-ink:#1d1500; --bar-muted:#3a4a5a;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.1}
+.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+/* Report title block */
+.titleblock{border-bottom:3px solid var(--ink);padding:40px 0 22px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.meta{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:14px}
+.meta b{color:var(--ink);font-weight:500}
+h1{font-size:clamp(40px,7vw,72px);font-weight:700;letter-spacing:-.01em}
+.role{font-family:var(--font-display);font-size:clamp(19px,2.6vw,26px);font-weight:500;color:var(--muted);margin-top:8px}
+.role em{font-style:normal;color:var(--ink);background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.contact{display:flex;flex-direction:column;gap:8px;font-size:14px;text-align:right}
+.contact a{text-decoration:none;border-bottom:1px solid var(--rule)}
+.contact a:hover{border-color:var(--accent)}
+.badge{display:inline-flex;align-items:center;gap:8px;align-self:flex-end;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:12px;font-weight:600;padding:6px 10px;letter-spacing:.03em}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--rule)}
+.kpi{padding:22px 18px 20px 0;border-right:1px solid var(--rule)}
+.kpi + .kpi{padding-left:18px}
+.kpi:last-child{border-right:0}
+.kpi .v{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:clamp(30px,4.4vw,44px);font-weight:600;line-height:1}
+.kpi .l{font-size:13px;color:var(--muted);margin-top:8px}
+
+section{padding:44px 0 8px}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:22px}
+h2{font-size:26px;font-weight:600}
+.sechead .note{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.lead{max-width:65ch;color:var(--muted);margin:0 0 22px}
+
+/* Impact chart */
+.impact{display:grid;gap:14px}
+.irow{display:grid;grid-template-columns:minmax(150px,240px) 1fr 64px;gap:14px;align-items:center}
+.irow .lbl{font-size:14px}
+.irow .lbl small{display:block;color:var(--muted);font-size:12px}
+.track{height:22px;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--rule) calc(10% - 1px) 10%);position:relative}
+.fill{position:absolute;inset:0 auto 0 0;background:var(--bar-muted)}
+.irow.top .fill{background:var(--accent)}
+.irow .val{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.axis{display:grid;grid-template-columns:minmax(150px,240px) 1fr 64px;gap:14px;font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.axis .ticks{display:flex;justify-content:space-between}
+
+/* Case studies */
+.cases{display:grid;gap:0}
+.case{display:grid;grid-template-columns:120px 1fr 1fr 150px;gap:20px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.case:first-child{border-top:1px solid var(--rule)}
+.case .id{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.case .id b{display:block;color:var(--ink);font-size:13px;font-weight:500;margin-top:4px;font-family:var(--font-body)}
+.case h3{font-size:20px;font-weight:600;margin-bottom:6px}
+.case p{margin:0;font-size:15px}
+.case .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.case .res{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:28px;font-weight:600;line-height:1}
+.case .res small{display:block;font-family:var(--font-body);font-size:12px;font-weight:400;color:var(--muted);margin-top:6px;line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-family:var(--font-mono);font-size:11px;border:1px solid var(--rule);padding:2px 7px;color:var(--muted)}
+.also{font-size:14px;color:var(--muted);margin:16px 0 0}
+.also b{color:var(--ink);font-weight:500}
+
+/* Gantt */
+.gantt{display:grid;gap:8px}
+.grow{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:14px;align-items:center}
+.grow .who{font-size:14px;line-height:1.3}
+.grow .who small{display:block;color:var(--muted);font-size:12px}
+.lane{position:relative;height:26px;background:linear-gradient(90deg,var(--rule) 1px,transparent 1px) 0 0/calc(100% / var(--years,10)) 100%}
+.bar{position:absolute;top:3px;bottom:3px;background:var(--ink);color:var(--bg);font-family:var(--font-mono);font-size:11px;display:flex;align-items:center;padding:0 6px;white-space:nowrap;overflow:hidden}
+.bar.intern{background:transparent;color:var(--ink);border:1.5px dashed var(--muted)}
+.bar.current{background:var(--accent);color:var(--accent-ink)}
+.gaxis{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:14px;font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.gaxis .years{display:grid;grid-template-columns:repeat(10,1fr)}
+
+/* Skills & certs */
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:36px}
+.skills{display:grid;gap:14px;margin:0}
+.skills dt{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.skills dd{margin:3px 0 0;font-size:15px}
+.certs{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.certs li{padding:12px 0;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.certs li:first-child{border-top:1px solid var(--rule)}
+.certs .iss{font-family:var(--font-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.certs li.hl{font-weight:600}
+.certs li.hl .iss{color:var(--ink)}
+
+footer{margin:56px 0 0;border-top:3px solid var(--ink);padding:22px 0 48px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline}
+footer h2{font-size:24px}
+footer .ways{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15px}
+footer .ways span{color:var(--muted);font-family:var(--font-mono);font-size:12px;margin-right:6px}
+
+@media (max-width:760px){
+  .titleblock{grid-template-columns:1fr}
+  .contact{text-align:left}
+  .badge{align-self:flex-start}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpi{border-right:0;padding-left:0 !important;border-bottom:1px solid var(--rule)}
+  .case{grid-template-columns:1fr;gap:10px}
+  .two{grid-template-columns:1fr}
+  .irow,.axis{grid-template-columns:1fr 56px}
+  .irow .lbl{grid-column:1 / -1}
+  .axis > span:first-child{display:none}
+  .grow,.gaxis{grid-template-columns:1fr}
+  .gaxis > span:first-child{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .fill{transform-origin:left;animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
+  .irow:nth-child(2) .fill{animation-delay:.08s}
+  .irow:nth-child(3) .fill{animation-delay:.16s}
+  .irow:nth-child(4) .fill{animation-delay:.24s}
+  @keyframes grow{from{transform:scaleX(.02)}to{transform:scaleX(1)}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="titleblock">
+    <div>
+      <div class="meta"><span>MIS report</span><span>Period <b class="num">2017–present</b></span><span>Based in <b>Noida, India</b></span><span>Experience <b class="num">7.5 years</b></span></div>
+      <h1>Saurabh Kumar Sharma</h1>
+      <div class="role"><em>AI &amp; Business Automation</em> · Senior MIS Lead · Data &amp; Business Analyst · Full Stack</div>
+    </div>
+    <div class="contact">
+      <a href="mailto:mrsaurabhkumarsharma@gmail.com">mrsaurabhkumarsharma@gmail.com</a>
+      <a href="https://linkedin.com/in/saurabh-sharma-7aa432416">linkedin.com/in/saurabh-sharma-7aa432416</a>
+    </div>
+  </header>
+
+  <div class="kpis" aria-label="Key figures">
+    <div class="kpi"><div class="v">7.5</div><div class="l">years in automation, MIS and analytics</div></div>
+    <div class="kpi"><div class="v">20</div><div class="l">major business systems built</div></div>
+    <div class="kpi"><div class="v">35+</div><div class="l">automated systems delivered</div></div>
+    <div class="kpi"><div class="v">40+</div><div class="l">Power BI dashboards</div></div>
+    <div class="kpi"><div class="v">10–15</div><div class="l">people in the team I led</div></div>
+  </div>
+
+  <section aria-labelledby="impact-h">
+    <div class="sechead"><h2 id="impact-h">Impact at Abhaya International</h2><span class="note">reduction vs. before, approx.</span></div>
+    <p class="lead">Four measured results from 15 months leading MIS for a 100+ person manufacturer.</p>
+    <div class="impact">
+      <div class="irow top"><div class="lbl">Response time<small>AI agents running follow-ups</small></div><div class="track"><div class="fill" style="width:60%"></div></div><div class="val">−60%</div></div>
+      <div class="irow"><div class="lbl">Manual reporting effort<small>CRM, PMS and FMS integrated</small></div><div class="track"><div class="fill" style="width:45%"></div></div><div class="val">−45%</div></div>
+      <div class="irow"><div class="lbl">Report turnaround<small>Python and Apps Script automation</small></div><div class="track"><div class="fill" style="width:40%"></div></div><div class="val">−40%</div></div>
+      <div class="irow"><div class="lbl">New-hire onboarding time<small>Standardised MIS SOPs</small></div><div class="track"><div class="fill" style="width:30%"></div></div><div class="val">−30%</div></div>
+      <div class="axis"><span></span><div class="ticks"><span>0%</span><span>50%</span><span>100%</span></div><span></span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cases-h">
+    <div class="sechead"><h2 id="cases-h">Selected work</h2><span class="note">problem · build · result</span></div>
+    <div class="cases">
+      <article class="case">
+        <div class="id">01<b>EH Group · current</b></div>
+        <div><h3>Business automation suite</h3><p>Sales, operations and management teams ran leads, tasks and work tracking on manual follow-ups and scattered sheets.</p></div>
+        <div><div class="k">What I build</div><p>CRM, lead management, task management and work management systems, with each department's process flow mapped and automated end to end.</p><div class="chips"><span class="chip">Process flows</span><span class="chip">CRM</span><span class="chip">Full stack</span></div></div>
+        <div class="res">Ongoing<small>Automation Specialist since Oct 2026</small></div>
+      </article>
+      <article class="case">
+        <div class="id">02<b>Abhaya International</b></div>
+        <div><h3>One reporting layer for five departments</h3><p>Sales, Purchase and Operations data sat in separate CRM, PMS and FMS systems, and reports were compiled by hand.</p></div>
+        <div><div class="k">What I built</div><p>Integrated the three systems into one MIS reporting layer, with real-time Power BI dashboards for department heads.</p><div class="chips"><span class="chip">Power BI</span><span class="chip">Zoho CRM</span><span class="chip">Python</span></div></div>
+        <div class="res">−45%<small>manual reporting effort</small></div>
+      </article>
+      <article class="case">
+        <div class="id">03<b>Abhaya International</b></div>
+        <div><h3>AI agents for follow-ups</h3><p>Customer and internal follow-ups depended on staff being available, so responses lagged.</p></div>
+        <div><div class="k">What I built</div><p>AI communication agents that run follow-ups and routine workflows around the clock without manual input.</p><div class="chips"><span class="chip">AI agents</span><span class="chip">LLMs</span><span class="chip">Apps Script</span></div></div>
+        <div class="res">−60%<small>response time</small></div>
+      </article>
+      <article class="case">
+        <div class="id">04<b>Abhaya International</b></div>
+        <div><h3>Automated recurring reports</h3><p>Daily and weekly reports took hours of copy-paste across sheets.</p></div>
+        <div><div class="k">What I built</div><p>Python and Google Apps Script frameworks that pull, clean and publish recurring reports and task workflows.</p><div class="chips"><span class="chip">Python</span><span class="chip">Apps Script</span><span class="chip">Google Sheets</span></div></div>
+        <div class="res">−40%<small>report turnaround time</small></div>
+      </article>
+      <article class="case">
+        <div class="id">05<b>Freelance, 2020–23</b></div>
+        <div><h3>Dashboards and custom software for clients</h3><p>Clients needed live KPI views instead of static monthly spreadsheets.</p></div>
+        <div><div class="k">What I built</div><p>Interactive dashboards on purpose-built data models, plus custom business software built end to end: front end, back end and database.</p><div class="chips"><span class="chip">Power BI</span><span class="chip">Data modeling</span><span class="chip">Full stack</span></div></div>
+        <div class="res">4.9★<small>client rating · +10% KPI tracking</small></div>
+      </article>
+      <article class="case">
+        <div class="id">06<b>Full-stack project</b></div>
+        <div><h3>Serverless lead management system</h3><p>Leads arrived from many channels with no single log or owner.</p></div>
+        <div><div class="k">What I built</div><p>A validated web form posting JSON to a Google Apps Script backend that timestamps each lead and logs it to a structured sheet for delegation.</p><div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">Apps Script</span></div></div>
+        <div class="res">0<small>servers to run or maintain</small></div>
+      </article>
+      <article class="case">
+        <div class="id">07<b>Paytm, 2018–20</b></div>
+        <div><h3>Performance dashboards and analysis</h3><p>Non-technical teams needed marketing and operations data they could read without an analyst.</p></div>
+        <div><div class="k">What I built</div><p>20+ performance dashboards and exploratory analyses on marketing and operational data, at 99%+ accuracy.</p><div class="chips"><span class="chip">SQL</span><span class="chip">Excel</span><span class="chip">EDA</span></div></div>
+        <div class="res">+5%<small>product engagement</small></div>
+      </article>
+    </div>
+    <p class="also"><b>20 major systems in total</b>, including employee, lead, work, process, inventory and task management systems, plus a workflow management system integrated with accounting.</p>
+  </section>
+
+  <section aria-labelledby="career-h">
+    <div class="sechead"><h2 id="career-h">Career</h2><span class="note">Mar 2017 – present</span></div>
+    <div class="gantt" id="gantt"></div>
+  </section>
+
+  <section aria-labelledby="skills-h">
+    <div class="two">
+      <div>
+        <div class="sechead"><h2 id="skills-h">Skills</h2></div>
+        <dl class="skills">
+          <div><dt>Automation &amp; AI</dt><dd>Google Apps Script, Python automation, workflow and process-flow automation, AI agents, AI platforms, LLM &amp; RAG</dd></div>
+          <div><dt>BI &amp; reporting</dt><dd>Power BI (DAX, Power Query, data modeling), Advanced Excel, MIS reporting and operations, KPI dashboards, data storytelling</dd></div>
+          <div><dt>Data analysis</dt><dd>SQL, MySQL, Python (Pandas), exploratory and statistical analysis, data cleaning, ETL</dd></div>
+          <div><dt>Business analysis</dt><dd>Process mapping and optimization, KPI definition, reporting requirements, SOP development, stakeholder management</dd></div>
+          <div><dt>Full stack &amp; systems</dt><dd>System design and implementation, full-stack web application development (JavaScript, HTML/CSS), Java, C++, Zoho CRM, Zoho Inventory, CRM / PMS / FMS integration</dd></div>
+          <div><dt>Security</dt><dd>Data privacy and security, network and firewall security, IT infrastructure</dd></div>
+          <div><dt>Leadership</dt><dd>Team leadership, operations management, problem solving, communication, training 200+ people</dd></div>
+        </dl>
+      </div>
+      <div>
+        <div class="sechead"><h2>Certifications</h2></div>
+        <ul class="certs">
+          <li><span>Advance Excel &amp; Power BI</span><span class="iss">Microsoft</span></li>
+          <li><span>Data &amp; Business Analyst</span><span class="iss">IBM</span></li>
+          <li><span>AI &amp; Machine Learning</span><span class="iss">Coursera</span></li>
+          <li><span>Google Workspace</span><span class="iss">Google</span></li>
+          <li><span>Computer Networking &amp; Web Development</span><span class="iss">Net Camp Solution</span></li>
+        </ul>
+        <p class="also"><b>Education:</b> MBA, Information Technology · B.Tech, Information Technology (2016), Dr. A.P.J. Abdul Kalam Technical University</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2>Hiring for automation, MIS or analytics?</h2>
+    <div class="ways">
+      <div><span>Email</span><a href="mailto:mrsaurabhkumarsharma@gmail.com">mrsaurabhkumarsharma@gmail.com</a></div>
+      <div><span>LinkedIn</span><a href="https://linkedin.com/in/saurabh-sharma-7aa432416">saurabh-sharma-7aa432416</a></div>
+      <div><span>Open to</span>Delhi NCR · Bengaluru · Remote</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var roles=[
+    {who:"Automation Specialist",org:"EH Group, Noida",s:[2026,10],e:null,cls:"current"},
+    {who:"Senior MIS Executive",org:"Abhaya International",s:[2025,7],e:[2026,9]},
+    {who:"Operations & MIS Intern",org:"Kaysons Export",s:[2025,2],e:[2025,6],cls:"intern"},
+    {who:"MIS Executive & Analyst",org:"RBA Finance",s:[2023,11],e:[2025,1]},
+    {who:"Freelance Data Analyst & Developer",org:"Self-employed, US clients",s:[2020,8],e:[2023,11]},
+    {who:"Data Analyst",org:"Paytm (One97)",s:[2018,5],e:[2020,8]},
+    {who:"Technical Trainer & MIS Executive",org:"Career Power",s:[2017,3],e:[2018,4]}
+  ];
+  var START=2017, YEARS=Math.max(10,new Date().getFullYear()+1-START), SPAN=YEARS*12;
+  function m(y,mo){return (y-START)*12+(mo-1);}
+  function fmt(a){return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][a[1]-1]+" "+a[0];}
+  var g=document.getElementById("gantt"); g.style.setProperty("--years",YEARS);
+  roles.forEach(function(r){
+    var now=new Date(); var e=r.e||[now.getFullYear(),now.getMonth()+1]; var a=m(r.s[0],r.s[1]), b=Math.min(m(e[0],e[1])+1,SPAN);
+    var row=document.createElement("div"); row.className="grow";
+    var who=document.createElement("div"); who.className="who";
+    who.textContent=r.who;
+    var sm=document.createElement("small"); sm.textContent=r.org+" · "+fmt(r.s)+" – "+(r.e?fmt(r.e):"Present"); who.appendChild(sm);
+    var lane=document.createElement("div"); lane.className="lane";
+    var bar=document.createElement("div"); bar.className="bar"+(r.cls?" "+r.cls:"");
+    bar.style.left=(a/SPAN*100)+"%"; bar.style.width=((b-a)/SPAN*100)+"%";
+    var months=b-a; bar.textContent=months>=12?(Math.floor(months/12)+"y "+(months%12)+"m"):(months+"m");
+    bar.title=r.org+": "+fmt(r.s)+" – "+(r.e?fmt(r.e):"Present");
+    lane.appendChild(bar); row.appendChild(who); row.appendChild(lane); g.appendChild(row);
+  });
+  var ax=document.createElement("div"); ax.className="gaxis";
+  var yrs='<span></span><div class="years" style="grid-template-columns:repeat('+YEARS+',1fr)">';
+  for(var y=START;y<START+YEARS;y++){yrs+='<span>'+(y===START?y:"’"+String(y).slice(2))+'</span>';}
+  ax.innerHTML=yrs+'</div>'; g.appendChild(ax);
+})();
+</script>
+</body>
+</html>
