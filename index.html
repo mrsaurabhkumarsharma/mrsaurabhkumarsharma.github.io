@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#06222e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <script>
 document.documentElement.classList.add('js');
 try{var t=localStorage.getItem('sks-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
@@ -107,12 +107,12 @@ h1{font-size:clamp(44px,6.6vw,84px);font-weight:700;margin-top:22px;letter-spaci
 .map .cap{position:relative;display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);padding:6px 6px 0}
 .map .cap b{color:var(--ink);font-weight:600}
 .node rect{fill:var(--bg);stroke:var(--rule);stroke-width:1.5}
-.node text{font-family:var(--display);font-size:15px;font-weight:600;fill:var(--ink)}
+.node text{font-family:var(--display);font-size:var(--nf,15px);font-weight:600;fill:var(--ink)}
 .node.out rect{stroke:color-mix(in srgb,var(--accent) 55%,var(--rule))}
 .hub rect.core{fill:var(--ink)}
 .hub text{font-family:var(--display);fill:var(--bg)}
-.hub .t1{font-size:17px;font-weight:700}
-.hub .t2{font-size:12.5px;font-weight:500;opacity:.8}
+.hub .t1{font-size:var(--t1,17px);font-weight:700}
+.hub .t2{font-size:var(--t2,12.5px);font-weight:500;opacity:.8}
 .hub .ring{fill:none;stroke:var(--accent);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
 .js .hub .ring{animation:ring 3s ease-out infinite}
 .hub .ring.r2{animation-delay:1.5s}
@@ -233,6 +233,309 @@ h2{font-size:clamp(32px,4vw,48px);font-weight:700}
 .proj li{font-size:14px;padding-left:20px;position:relative}
 .proj li::before{content:"";position:absolute;left:2px;top:.6em;width:8px;height:8px;border-radius:50%;border:2px solid var(--support)}
 .proj .chips{margin-top:auto;padding-top:12px;border-top:1px dashed var(--rule)}
+/* Mini animations on project cards */
+.pviz{position:relative;height:136px;margin:-6px -6px 6px;border-radius:16px;background:var(--bg);border:1px solid var(--rule);overflow:hidden}
+.pviz::before{content:"";position:absolute;inset:0;background-image:radial-gradient(color-mix(in srgb,var(--muted) 28%,transparent) 1px,transparent 1px);background-size:14px 14px;opacity:.45;pointer-events:none}
+.pviz>*{position:relative}
+/* scan */
+.v-scan{display:flex;align-items:center;justify-content:center;gap:14px;padding:0 14px}
+.photo{width:76px;height:92px;border-radius:10px;background:linear-gradient(var(--soft),var(--surface));border:1px solid var(--rule);overflow:hidden;flex:none;position:relative}
+.photo .sun{position:absolute;width:15px;height:15px;border-radius:50%;background:#f5b941;top:12px;right:12px}
+.photo .hill{position:absolute;left:-12px;right:-12px;bottom:-26px;height:58px;border-radius:50%;background:var(--support);opacity:.55}
+.photo .beam{position:absolute;left:0;right:0;top:4%;height:2px;background:var(--accent);box-shadow:0 0 12px 3px color-mix(in srgb,var(--accent) 55%,transparent);animation:beam 4.4s ease-in-out infinite}
+@keyframes beam{0%{top:4%;opacity:1}38%{top:94%;opacity:1}46%,100%{top:94%;opacity:0}}
+.v-scan .ai{flex:none;font:700 12px var(--display);color:var(--on-accent);background:var(--accent);padding:6px 9px;border-radius:9px;animation:aip 4.4s infinite}
+@keyframes aip{30%,48%{box-shadow:0 0 0 7px color-mix(in srgb,var(--accent) 22%,transparent)}}
+.sheet{width:120px;display:grid;gap:7px;padding:9px;border-radius:10px;background:var(--surface);border:1px solid var(--rule)}
+.sheet b{display:block;height:9px;border-radius:4px;background:linear-gradient(90deg,var(--support) 0 32%,transparent 32% 38%,var(--rule) 38%);transform-origin:left;animation:srow 4.4s infinite both}
+.sheet b:nth-child(2){animation-name:srow2}.sheet b:nth-child(3){animation-name:srow3}.sheet b:nth-child(4){animation-name:srow4}
+@keyframes srow{0%,36%{transform:scaleX(0)}46%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes srow2{0%,44%{transform:scaleX(0)}54%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes srow3{0%,52%{transform:scaleX(0)}62%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes srow4{0%,60%{transform:scaleX(0)}70%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.v-scan .mail{position:absolute;top:10px;right:12px;display:flex;align-items:center;gap:5px;font:600 11.5px var(--body);color:#fff;background:#16b67a;padding:4px 9px;border-radius:999px;animation:mail 4.4s infinite}
+.v-scan .mail svg{width:13px;height:13px}
+@keyframes mail{0%,72%{opacity:0;transform:translateY(-6px) scale(.9)}78%,94%{opacity:1;transform:none}100%{opacity:0}}
+/* kanban */
+.v-kanban{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px}
+.v-kanban .col{border-radius:10px;background:var(--surface);border:1px dashed var(--rule);position:relative}
+.v-kanban .col small{position:absolute;top:6px;left:8px;font-size:11px;font-weight:600;color:var(--muted)}
+.pings{position:absolute;left:6px;right:6px;bottom:6px;display:grid;gap:3px}
+.pings span{font-size:10px;font-weight:600;text-align:center;padding:2px 0;border-radius:6px;color:#fff;opacity:0;animation:ping1 6s infinite}
+.pings span:nth-child(1){background:#16b67a}.pings span:nth-child(2){background:var(--support);animation-name:ping2}.pings span:nth-child(3){background:#7a5cff;animation-name:ping3}
+@keyframes ping1{0%,36%{opacity:0;transform:scale(.6)}40%,62%{opacity:1;transform:none}66%,100%{opacity:0}}
+@keyframes ping2{0%,42%{opacity:0;transform:scale(.6)}46%,62%{opacity:1;transform:none}66%,100%{opacity:0}}
+@keyframes ping3{0%,48%{opacity:0;transform:scale(.6)}52%,62%{opacity:1;transform:none}66%,100%{opacity:0}}
+.tcard{position:absolute;left:16px;top:30px;width:calc((100% - 36px)/3 - 12px);padding:6px 7px;border-radius:8px;background:var(--accent);color:var(--on-accent);box-shadow:0 6px 14px -6px color-mix(in srgb,var(--accent) 70%,transparent);animation:kmove 6s cubic-bezier(.6,0,.3,1) infinite,kcol 6s infinite}
+.tcard b{display:block;font:700 11px var(--display)}
+.tcard i{font-style:normal;font-size:10px;opacity:.85}
+@keyframes kmove{0%,24%{transform:none}34%,62%{transform:translateX(calc(100% + 20px))}72%,94%{transform:translateX(calc(200% + 40px))}100%{transform:translateX(calc(200% + 40px));opacity:0}}
+@keyframes kcol{0%,66%{background:var(--accent)}74%,100%{background:#16b67a;color:#fff}}
+/* steps */
+.v-steps{display:flex;flex-direction:column;justify-content:center;padding:0 16px;gap:16px}
+.v-steps .live{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--muted);align-self:flex-start}
+.v-steps .live i{width:7px;height:7px;border-radius:50%;background:#16b67a;animation:ping 2s infinite}
+.steps{display:flex;justify-content:space-between;position:relative}
+.steps .line{position:absolute;left:10px;right:10px;top:9px;height:3px;border-radius:2px;background:var(--rule)}
+.steps .line i{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,var(--support),var(--accent));transform-origin:left;animation:sline 6s infinite}
+@keyframes sline{0%{transform:scaleX(0)}72%,90%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.st{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;width:20px}
+.st b{width:20px;height:20px;border-radius:50%;background:var(--surface);border:2px solid var(--rule);display:block;animation:st1 6s infinite}
+.st:nth-of-type(3) b{animation-name:st2}.st:nth-of-type(4) b{animation-name:st3}.st:nth-of-type(5) b{animation-name:st4}.st:nth-of-type(6) b{animation-name:st5}
+@keyframes st1{0%,1%{background:var(--surface);border-color:var(--rule)}3%,90%{background:var(--support);border-color:var(--support);transform:scale(1)}100%{background:var(--surface)}}
+@keyframes st2{0%,17%{background:var(--surface);border-color:var(--rule)}19%{transform:scale(1.3)}21%,90%{background:var(--support);border-color:var(--support);transform:scale(1)}100%{background:var(--surface)}}
+@keyframes st3{0%,35%{background:var(--surface);border-color:var(--rule)}37%{transform:scale(1.3)}39%,90%{background:var(--support);border-color:var(--support);transform:scale(1)}100%{background:var(--surface)}}
+@keyframes st4{0%,53%{background:var(--surface);border-color:var(--rule)}55%{transform:scale(1.3)}57%,90%{background:var(--support);border-color:var(--support);transform:scale(1)}100%{background:var(--surface)}}
+@keyframes st5{0%,70%{background:var(--surface);border-color:var(--rule)}72%{transform:scale(1.35)}74%,90%{background:var(--accent);border-color:var(--accent);transform:scale(1)}100%{background:var(--surface)}}
+.st small{font-size:10.5px;font-weight:600;color:var(--muted);white-space:nowrap}
+/* org tree */
+.v-tree{display:grid;place-items:center;padding:6px 10px}
+.v-tree svg{width:100%;height:100%}
+.v-tree .edges path{fill:none;stroke:var(--support);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 5s infinite}
+.v-tree .edges .e2{animation-name:draw2}
+@keyframes draw{0%,8%{stroke-dashoffset:1}24%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes draw2{0%,30%{stroke-dashoffset:1}46%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+.v-tree rect{fill:var(--surface);stroke:var(--rule);stroke-width:1.5}
+.v-tree .n0 rect{fill:var(--ink)}
+.v-tree text{font:600 11px var(--display);fill:var(--ink);text-anchor:middle}
+.v-tree .n0 text{fill:var(--bg)}
+.v-tree .tn,.v-tree circle{transform-box:fill-box;transform-origin:center}
+.v-tree .n1{animation:tpop 5s infinite}
+@keyframes tpop{0%,20%{opacity:0;transform:scale(.6)}28%,92%{opacity:1;transform:none}100%{opacity:0}}
+.v-tree circle{fill:var(--soft);stroke:var(--support);stroke-width:1.5;animation:leaf 5s infinite}
+.v-tree circle:nth-child(2){animation-name:leaf2}.v-tree circle:nth-child(3){animation-name:leaf3}.v-tree circle:nth-child(4){animation-name:leaf4}
+@keyframes leaf{0%,44%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:none;fill:var(--soft)}58%,64%{fill:var(--accent)}70%,92%{opacity:1;fill:var(--soft)}100%{opacity:0}}
+@keyframes leaf2{0%,46%{opacity:0;transform:scale(.4)}52%{opacity:1;transform:none;fill:var(--soft)}64%,70%{fill:var(--accent)}76%,92%{opacity:1;fill:var(--soft)}100%{opacity:0}}
+@keyframes leaf3{0%,48%{opacity:0;transform:scale(.4)}54%{opacity:1;transform:none;fill:var(--soft)}70%,76%{fill:var(--accent)}82%,92%{opacity:1;fill:var(--soft)}100%{opacity:0}}
+@keyframes leaf4{0%,50%{opacity:0;transform:scale(.4)}56%{opacity:1;transform:none;fill:var(--soft)}76%,82%{fill:var(--accent)}88%,92%{opacity:1;fill:var(--soft)}100%{opacity:0}}
+/* form to rows */
+.v-form{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center;padding:0 12px}
+.v-form .form{display:grid;gap:7px;padding:9px;border-radius:10px;background:var(--surface);border:1px solid var(--rule)}
+.v-form .f{display:block;height:14px;border-radius:5px;border:1px solid var(--rule);background:var(--bg);overflow:hidden;padding:3px}
+.v-form .f i{display:block;height:100%;border-radius:3px;background:var(--muted);opacity:.5;transform-origin:left;animation:typef 5s steps(8) infinite}
+.v-form .f:nth-child(2) i{animation-name:typef2}
+@keyframes typef{0%,4%{transform:scaleX(0)}22%,90%{transform:scaleX(.8)}100%{transform:scaleX(0)}}
+@keyframes typef2{0%,22%{transform:scaleX(0)}38%,90%{transform:scaleX(.6)}100%{transform:scaleX(0)}}
+.v-form .btn2{font:700 10.5px var(--display);text-align:center;padding:4px 0;border-radius:6px;background:var(--accent);color:var(--on-accent);animation:press 5s infinite}
+@keyframes press{0%,42%{transform:none}46%{transform:scale(.86);filter:brightness(1.2)}50%,100%{transform:none}}
+.v-form .rows{display:grid;gap:5px}
+.v-form .r{display:flex;align-items:center;gap:7px;font-size:11px;padding:5px 8px;border-radius:8px;background:var(--surface);border:1px solid var(--rule);white-space:nowrap;overflow:hidden}
+.v-form .r b{font-weight:700;color:var(--muted)}
+.v-form .r em{font-style:normal;margin-left:auto;font-weight:600;font-size:10px;color:var(--support)}
+.v-form .r.new{border-color:var(--accent);animation:newrow 5s infinite}
+@keyframes newrow{0%,48%{opacity:0;max-height:0;padding-block:0;margin-bottom:-5px;transform:translateX(-14px)}58%,92%{opacity:1;max-height:30px;padding-block:5px;margin-bottom:0;transform:none}100%{opacity:0}}
+/* code to app */
+.v-code{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:10px;padding:12px}
+.v-code .code{border-radius:10px;background:var(--band);padding:10px;display:grid;align-content:start;gap:8px}
+.v-code .code i{display:block;height:7px;border-radius:4px;width:var(--w);background:#ff6aa5;transform-origin:left;animation:tl1 5s steps(6) infinite}
+.v-code .code i.c2{background:#5fd8f0}.v-code .code i.c3{background:#e6f6fb;margin-left:14px}
+.v-code .code i:nth-child(2){animation-name:tl2}.v-code .code i:nth-child(3){animation-name:tl3}.v-code .code i:nth-child(4){animation-name:tl4}.v-code .code i:nth-child(5){animation-name:tl5}
+@keyframes tl1{0%{transform:scaleX(0)}10%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes tl2{0%,10%{transform:scaleX(0)}20%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes tl3{0%,20%{transform:scaleX(0)}30%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes tl4{0%,30%{transform:scaleX(0)}40%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes tl5{0%,40%{transform:scaleX(0)}50%,92%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.v-code .win{border-radius:10px;background:var(--surface);border:1px solid var(--rule);overflow:hidden;display:flex;flex-direction:column}
+.v-code .wb{display:flex;gap:4px;padding:6px 8px;border-bottom:1px solid var(--rule)}
+.v-code .wb s{width:7px;height:7px;border-radius:50%;background:var(--rule)}
+.v-code .wb s:first-child{background:var(--accent)}
+.v-code .wbody{flex:1;display:grid;grid-template-columns:22px 1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:7px}
+.v-code .side{grid-row:1 / 3;border-radius:5px;background:var(--soft);animation:wpop 5s infinite}
+.v-code .k{border-radius:6px;background:var(--soft);border:1px solid var(--rule);animation:wpop2 5s infinite}
+.v-code .k1{grid-column:2 / 4;background:color-mix(in srgb,var(--support) 22%,var(--soft))}
+.v-code .k2{animation-name:wpop3}.v-code .k3{animation-name:wpop4;background:color-mix(in srgb,var(--accent) 22%,var(--soft))}
+@keyframes wpop{0%,46%{opacity:0;transform:scale(.7)}54%,92%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes wpop2{0%,54%{opacity:0;transform:scale(.7)}62%,92%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes wpop3{0%,62%{opacity:0;transform:scale(.7)}70%,92%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes wpop4{0%,70%{opacity:0;transform:scale(.7)}78%,92%{opacity:1;transform:none}100%{opacity:0}}
+
+/* Inventory scene */
+.proj.wide{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:24px;align-items:center}
+.proj.wide .ptext{display:flex;flex-direction:column;gap:10px;height:100%}
+.proj.wide .pviz{height:auto;margin:0;padding:8px}
+.v-wh svg{display:block;width:100%;height:auto}
+.v-wh .road{fill:color-mix(in srgb,var(--muted) 22%,var(--bg))}
+.v-wh .lane{stroke:var(--surface);stroke-width:2.5;stroke-dasharray:14 12;animation:lane 1s linear infinite}
+@keyframes lane{to{stroke-dashoffset:-26}}
+.v-wh .roof{fill:var(--ink)}
+.v-wh .sign{font:700 13px var(--display);fill:var(--bg);text-anchor:middle}
+.v-wh .body{fill:var(--surface);stroke:var(--rule);stroke-width:2}
+.v-wh .door{fill:var(--soft);stroke:var(--rule);stroke-width:1.5}
+.v-wh .shutter{stroke:var(--rule);stroke-width:1.5;animation:shut 8s infinite}
+@keyframes shut{0%,24%,52%,100%{transform:none}30%,46%{transform:translateY(-10px);opacity:.3}}
+.v-wh .shelf{stroke:var(--muted);stroke-width:2.5;stroke-linecap:round;opacity:.7}
+.v-wh .stock rect,.v-wh .cargo rect,.v-wh .cargo2 rect{fill:#e9a23b;stroke:#b8761b;stroke-width:1.2}
+.v-wh .stock rect,.v-wh .cargo rect{transform-box:fill-box;transform-origin:center bottom}
+.v-wh .stock.in rect{animation:stk 8s infinite both}
+.v-wh .stock.in rect:nth-child(2){animation-name:stk2}.v-wh .stock.in rect:nth-child(3){animation-name:stk3}.v-wh .stock.in rect:nth-child(4){animation-name:stk4}.v-wh .stock.in rect:nth-child(5){animation-name:stk5}.v-wh .stock.in rect:nth-child(6){animation-name:stk6}
+@keyframes stk{0%,32%{opacity:0;transform:translateY(-18px)}36%,94%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes stk2{0%,34%{opacity:0;transform:translateY(-18px)}38%,94%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes stk3{0%,36%{opacity:0;transform:translateY(-18px)}40%,94%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes stk4{0%,38%{opacity:0;transform:translateY(-18px)}42%,94%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes stk5{0%,40%{opacity:0;transform:translateY(-18px)}44%,94%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes stk6{0%,42%{opacity:0;transform:translateY(-18px)}46%,94%{opacity:1;transform:none}100%{opacity:0}}
+.v-wh .stock.pick rect{animation:pick 8s infinite}
+@keyframes pick{0%,50%{opacity:1;transform:none}56%,96%{opacity:0;transform:translateX(16px)}100%{opacity:1;transform:none}}
+.v-wh .cargo{animation:unload 8s infinite}
+@keyframes unload{0%,27%{opacity:1;transform:none}36%,100%{opacity:0;transform:translate(40px,-14px)}}
+.v-wh .cab{fill:var(--support)}
+.v-wh .tout .cab{fill:var(--accent)}
+.v-wh .win{fill:var(--bg);opacity:.85}
+.v-wh .bed,.v-wh .chassis{fill:var(--ink)}
+.v-wh .wheel circle{fill:#1d2b33;stroke:var(--bg);stroke-width:2}
+.v-wh .wheel path{stroke:#8aa4ae;stroke-width:1.6}
+.v-wh .wheel{transform-box:fill-box;transform-origin:center;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.v-wh .tin{animation:tin 8s cubic-bezier(.45,0,.3,1) infinite}
+@keyframes tin{0%{transform:translateX(-120px)}24%,50%{transform:translateX(94px)}66%,100%{transform:translateX(250px)}}
+.v-wh .tout{animation:tout 8s cubic-bezier(.45,0,.3,1) infinite}
+@keyframes tout{0%,54%{transform:translateX(240px)}96%,100%{transform:translateX(540px)}}
+.v-wh .badge rect{fill:var(--ink)}
+.v-wh .badge text{font:600 11.5px var(--body);fill:var(--bg);text-anchor:middle}
+.v-wh .b-in{animation:bin 8s infinite}
+.v-wh .b-out{animation:bout 8s infinite}
+.v-wh .b-in rect{fill:#16b67a}.v-wh .b-out rect{fill:var(--accent)}
+.v-wh .b-in text,.v-wh .b-out text{fill:#fff}
+@keyframes bin{0%,36%{opacity:0;transform:translateY(6px)}42%,58%{opacity:1;transform:none}64%,100%{opacity:0}}
+@keyframes bout{0%,60%{opacity:0;transform:translateY(6px)}66%,86%{opacity:1;transform:none}92%,100%{opacity:0}}
+
+/* Grid packing */
+.pgrid{grid-auto-flow:dense}
+.proj.span2{grid-column:span 2}
+.v-agent svg{display:block;width:100%;height:100%}
+/* LLM chat */
+.v-chat{display:flex;flex-direction:column;justify-content:center;gap:8px;padding:12px 14px}
+.v-chat .bq{align-self:flex-end;font-size:12px;font-weight:500;padding:7px 11px;border-radius:12px 12px 3px 12px;background:var(--ink);color:var(--bg);animation:bq 5s infinite}
+@keyframes bq{0%{opacity:0;transform:translateY(8px)}8%,92%{opacity:1;transform:none}100%{opacity:0}}
+.v-chat .dots{display:flex;gap:4px;padding:8px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--rule);width:max-content;animation:dts 5s infinite}
+.v-chat .dots i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:dot .8s infinite}
+.v-chat .dots i:nth-child(2){animation-delay:.15s}.v-chat .dots i:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{transform:translateY(-3px);opacity:.4}}
+@keyframes dts{0%,12%{opacity:0;max-height:0;padding-block:0}16%,34%{opacity:1;max-height:30px;padding-block:8px}38%,100%{opacity:0;max-height:0;padding-block:0;margin-top:-8px}}
+.v-chat .ba{width:78%;display:grid;gap:6px;padding:10px 11px;border-radius:12px 12px 12px 3px;background:var(--surface);border:1px solid var(--support);animation:bq2 5s infinite}
+@keyframes bq2{0%,36%{opacity:0;transform:translateY(8px)}40%,92%{opacity:1;transform:none}100%{opacity:0}}
+.v-chat .ba i{display:block;height:7px;border-radius:4px;width:var(--w);background:color-mix(in srgb,var(--support) 55%,var(--rule));transform-origin:left;animation:str1 5s steps(7) infinite}
+.v-chat .ba i:nth-child(2){animation-name:str2}.v-chat .ba i:nth-child(3){animation-name:str3}
+@keyframes str1{0%,40%{transform:scaleX(0)}52%,100%{transform:scaleX(1)}}
+@keyframes str2{0%,52%{transform:scaleX(0)}64%,100%{transform:scaleX(1)}}
+@keyframes str3{0%,64%{transform:scaleX(0)}74%,100%{transform:scaleX(1)}}
+/* RAG */
+.v-rag{display:grid;grid-template-columns:auto 26px minmax(0,1fr);align-items:center;gap:8px;padding:0 14px}
+.v-rag .docs{display:flex;gap:5px}
+.v-rag .doc{width:36px;height:48px;border-radius:5px;background:var(--surface);border:1px solid var(--rule);display:grid;align-content:start;gap:5px;padding:7px 5px}
+.v-rag .doc:nth-child(2){transform:translateY(-8px)}
+.v-rag .doc i{height:4px;border-radius:2px;background:var(--rule)}
+.v-rag .doc i.hit{animation:hit 5s infinite}
+.v-rag .doc:nth-child(2) i.hit{animation-name:hit2}.v-rag .doc:nth-child(3) i.hit{animation-name:hit3}
+@keyframes hit{0%,10%{background:var(--rule)}16%,80%{background:var(--accent);box-shadow:0 0 6px var(--accent)}90%,100%{background:var(--rule)}}
+@keyframes hit2{0%,18%{background:var(--rule)}24%,80%{background:var(--accent);box-shadow:0 0 6px var(--accent)}90%,100%{background:var(--rule)}}
+@keyframes hit3{0%,26%{background:var(--rule)}32%,80%{background:var(--accent);box-shadow:0 0 6px var(--accent)}90%,100%{background:var(--rule)}}
+.v-rag .arrow{height:2px;background:linear-gradient(90deg,var(--accent) 0 50%,transparent 50%) 0 0/8px 2px;animation:flowx .6s linear infinite;position:relative}
+.v-rag .arrow::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left-color:var(--accent)}
+.v-rag .ans{display:grid;gap:6px;padding:10px;border-radius:12px;background:var(--surface);border:1px solid var(--rule);animation:bq2 5s infinite}
+.v-rag .ans i{display:block;height:7px;border-radius:4px;width:var(--w);background:color-mix(in srgb,var(--support) 55%,var(--rule))}
+.v-rag .src{justify-self:start;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);animation:srcp 5s infinite}
+.v-rag .src.s2{animation-name:srcp2}
+@keyframes srcp{0%,50%{opacity:0;transform:scale(.7)}56%,92%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes srcp2{0%,58%{opacity:0;transform:scale(.7)}64%,92%{opacity:1;transform:none}100%{opacity:0}}
+/* Agent loop */
+.v-agent{padding:6px 10px;height:150px}
+.v-agent .orbit{fill:none;stroke:var(--rule);stroke-width:2;stroke-dasharray:5 7;animation:dash 1.4s linear infinite}
+.v-agent .agp{fill:none;stroke:none}
+.v-agent .runner{fill:var(--accent);filter:drop-shadow(0 0 5px var(--accent))}
+.v-agent .anode rect{fill:var(--surface);stroke:var(--rule);stroke-width:1.5;animation:an0 6s linear infinite}
+.v-agent .anode text{font:600 12px var(--display);fill:var(--ink);text-anchor:middle}
+.v-agent .a1 rect{animation-name:an1}.v-agent .a2 rect{animation-name:an2}.v-agent .a3 rect{animation-name:an3}.v-agent .a4 rect{animation-name:an4}
+@keyframes an0{0%,100%{stroke:var(--accent);stroke-width:2.5}8%,92%{stroke:var(--rule);stroke-width:1.5}}
+@keyframes an1{0%,14%,30%,100%{stroke:var(--rule);stroke-width:1.5}21%{stroke:var(--accent);stroke-width:2.5}}
+@keyframes an2{0%,31%,47%,100%{stroke:var(--rule);stroke-width:1.5}38%{stroke:var(--accent);stroke-width:2.5}}
+@keyframes an3{0%,54%,70%,100%{stroke:var(--rule);stroke-width:1.5}62%{stroke:var(--accent);stroke-width:2.5}}
+@keyframes an4{0%,71%,87%,100%{stroke:var(--rule);stroke-width:1.5}79%{stroke:var(--accent);stroke-width:2.5}}
+.v-agent .core rect{fill:var(--ink)}
+.v-agent .core text{font:700 14px var(--display);fill:var(--bg);text-anchor:middle}
+.v-agent .core .sub{font:500 10.5px var(--body);opacity:.8}
+/* AI employee */
+.v-aiemp{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;align-items:center;padding:0 12px}
+.v-aiemp .who{display:grid;justify-items:center;gap:5px;padding:10px 6px;border-radius:12px;background:var(--surface);border:1px solid var(--rule)}
+.v-aiemp .face{width:40px;height:40px;border-radius:12px;background:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;position:relative}
+.v-aiemp .face::before{content:"";position:absolute;top:-7px;left:50%;width:2px;height:7px;background:var(--ink)}
+.v-aiemp .face::after{content:"";position:absolute;top:-11px;left:calc(50% - 3px);width:8px;height:8px;border-radius:50%;background:var(--accent);animation:ping 2s infinite}
+.v-aiemp .face i{width:7px;height:9px;border-radius:3px;background:#5fd8f0;animation:blinkeye 4s infinite}
+@keyframes blinkeye{0%,46%,50%,100%{transform:none}48%{transform:scaleY(.1)}}
+.v-aiemp .who b{font:700 11.5px var(--display)}
+.v-aiemp .duty{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;color:#16b67a}
+.v-aiemp .duty i{width:6px;height:6px;border-radius:50%;background:#16b67a;animation:ping 2s infinite}
+.v-aiemp .jobs{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.v-aiemp .jobs li{font-size:11.5px;font-weight:500;padding:5px 9px 5px 28px;border-radius:8px;background:var(--surface);border:1px solid var(--rule);position:relative;animation:job 6s infinite}
+.v-aiemp .jobs li::before{content:"";position:absolute;left:8px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;border:2px solid var(--rule);animation:jobc 6s infinite}
+.v-aiemp .jobs li:nth-child(2),.v-aiemp .jobs li:nth-child(2)::before{animation-delay:.9s}
+.v-aiemp .jobs li:nth-child(3),.v-aiemp .jobs li:nth-child(3)::before{animation-delay:1.8s}
+.v-aiemp .jobs li:nth-child(4),.v-aiemp .jobs li:nth-child(4)::before{animation-delay:2.7s}
+@keyframes job{0%,10%{opacity:.45}16%,70%{opacity:1;border-color:color-mix(in srgb,#16b67a 50%,var(--rule))}80%,100%{opacity:.45}}
+@keyframes jobc{0%,10%{background:transparent;border-color:var(--rule)}16%,70%{background:#16b67a;border-color:#16b67a}80%,100%{background:transparent;border-color:var(--rule)}}
+/* Gears */
+.v-gears{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;padding:10px 12px;gap:2px}
+.v-gears .trig{justify-self:start;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--muted);padding:3px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--rule)}
+.v-gears .trig svg{width:12px;height:12px}
+.v-gears .gs{width:120px;height:64px}
+.v-gears .teeth{fill:none;stroke:var(--support);stroke-width:7;stroke-dasharray:5 4.4}
+.v-gears .t2{stroke:var(--accent);stroke-dasharray:4.2 4}
+.v-gears .hubc{fill:var(--surface);stroke:var(--rule);stroke-width:1.5}
+.v-gears .pin{fill:var(--ink)}
+.v-gears .g1{transform-origin:40px 35px;animation:orb 4s linear infinite}
+.v-gears .g2{transform-origin:78px 30px;animation:orb 2.6s linear infinite reverse}
+.v-gears .belt{position:relative;width:100%;height:24px;border-radius:8px;background:color-mix(in srgb,var(--muted) 16%,var(--bg));overflow:hidden}
+.v-gears .belt span{position:absolute;top:3px;left:0;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--surface);border:1px solid var(--rule);color:var(--muted);animation:beltm 4.5s linear infinite}
+.v-gears .belt span:nth-child(2){animation-delay:-1.5s}.v-gears .belt span:nth-child(3){animation-delay:-3s}
+@keyframes beltm{0%{left:-60px}49%{background:var(--surface);color:var(--muted);border-color:var(--rule)}51%,100%{background:#16b67a;color:#fff;border-color:#16b67a}100%{left:calc(100% + 10px)}}
+
+/* Featured: live ledger */
+.ledger{margin-top:22px;padding:16px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);display:grid;gap:10px}
+.lhead{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:14px}
+.lhead span{display:inline-flex;align-items:center;gap:8px}
+.lhead i{width:8px;height:8px;border-radius:50%;background:#16b67a;animation:ping 2s infinite}
+.lhead small{font-size:12px;color:var(--band-muted);font-weight:400}
+.lrow{display:grid;grid-template-columns:96px minmax(0,1fr) 56px;gap:10px;align-items:center;font-size:13.5px}
+.lrow span{color:var(--band-muted)}
+.lbar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.lbar i{display:block;height:100%;width:var(--w,50%);border-radius:inherit;background:linear-gradient(90deg,#3cc8e6,#ff6aa5);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.lrow b{text-align:right;font-family:var(--display);font-variant-numeric:tabular-nums;transition:color .3s}
+.lrow b.up{color:#5fe3a1}.lrow b.down{color:#ff7fb0}
+.lrow.flash .lbar{box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.feed{display:grid;gap:6px;min-height:104px;align-content:start;margin-top:4px}
+.ev{display:flex;align-items:center;gap:10px;font-size:13px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.06);animation:evin .5s cubic-bezier(.2,.8,.2,1)}
+.ev:nth-child(n+2){opacity:.65}.ev:nth-child(n+3){opacity:.4}
+.ev b{font:700 11px var(--display);padding:2px 8px;border-radius:999px;color:#06222e;flex:none}
+.ev.in b{background:#5fe3a1}.ev.out b{background:#5fd8f0}.ev.dmg b{background:#ffb35c}.ev.tr b{background:#ff7fb0}
+@keyframes evin{from{opacity:0;transform:translateY(-10px)}}
+
+/* Skills terminal */
+.term{display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(14px,2.5vw,28px);align-items:start}
+.term .tabs{display:grid;gap:6px}
+.term .tabs button{min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;border-radius:14px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);font:500 14.5px var(--body);text-align:left;cursor:pointer;transition:background-color .25s,border-color .25s,transform .25s}
+.term .tabs button span{font-size:12px;color:var(--muted);font-weight:600}
+.term .tabs button:hover{border-color:var(--support);transform:translateX(3px)}
+.term .tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.term .tabs button.on span{color:var(--on-accent);opacity:.8}
+.tw{border-radius:20px;background:#04161e;color:#d9eef5;border:1px solid #17404f;box-shadow:var(--shadow);overflow:hidden;min-height:380px}
+.tbar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:#0a2632;border-bottom:1px solid #17404f}
+.tbar s{width:11px;height:11px;border-radius:50%;background:#ff5f7e}.tbar s:nth-child(2){background:#ffc04d}.tbar s:nth-child(3){background:#3fd28a}
+.tbar span{margin-left:10px;font:400 12.5px "JetBrains Mono",ui-monospace,monospace;color:#7fa7b5}
+.tbody{padding:20px;font:400 14px/1.7 "JetBrains Mono",ui-monospace,monospace}
+.tbody .cmd{color:#fff}.tbody .cmd em{font-style:normal;color:#ff6aa5}.tbody .cmd q{color:#5fd8f0}
+.tbody .desc{color:#7fa7b5;margin:6px 0 12px}
+.tbody .out{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 18px}
+.tbody .out div{animation:tline .3s ease-out both}
+.tbody .out div::before{content:"\2713  ";color:#3fd28a}
+.tbody .sum{margin-top:14px;color:#3fd28a}
+.tbody .car{display:inline-block;width:8px;height:1.1em;background:#ff6aa5;vertical-align:-.2em;animation:blink 1s steps(1) infinite}
+@keyframes tline{from{opacity:0;transform:translateX(-6px)}}
+.term.ready .panels{display:none}
+.term:not(.ready) .panels{padding:20px;display:grid;gap:18px}
+.term:not(.ready) .spanel p{color:#7fa7b5}
+.term:not(.ready) .schips span{margin-right:8px}
+.certrow{margin-top:clamp(36px,5vw,56px)}
+.edu + .edu{margin-top:12px}
 
 /* Career */
 .career{background:var(--surface);border:1px solid var(--rule);border-radius:24px;padding:clamp(18px,3vw,32px);box-shadow:var(--shadow)}
@@ -264,7 +567,7 @@ h2{font-size:clamp(32px,4vw,48px);font-weight:700}
 .certs li:first-child{border-top:0}
 .certs li:hover{background:var(--soft)}
 .certs .iss{font-size:13px;color:var(--muted);font-weight:400;white-space:nowrap}
-.edu{margin-top:22px;background:var(--soft);border-radius:18px;padding:18px}
+.edu{background:var(--soft);border-radius:18px;padding:18px}
 .edu b{display:block;font-family:var(--display);font-size:17px;margin-bottom:6px}
 .edu p{margin:0;font-size:14.5px;color:var(--muted)}
 
@@ -283,7 +586,11 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
 @media (max-width:900px){
   .hero{grid-template-columns:minmax(0,1fr)}
   .feat{grid-template-columns:minmax(0,1fr)}
+  .term{grid-template-columns:minmax(0,1fr)}
+  .term .tabs{display:flex;flex-wrap:wrap}
+  .term .tabs button{min-height:42px}
   .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proj.wide{grid-template-columns:minmax(0,1fr)}
   .kpis{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:26px}
   .kpi:nth-child(4){border-left:0;padding-left:0}
   .two{grid-template-columns:minmax(0,1fr)}
@@ -296,6 +603,9 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
   .kpi:nth-child(4){border-left:1px solid rgba(255,255,255,.12);padding-left:clamp(12px,2vw,24px)}
   .cases{grid-template-columns:minmax(0,1fr)}
   .pgrid{grid-template-columns:minmax(0,1fr)}
+  .proj.span2{grid-column:auto}
+  .tbody .out{grid-template-columns:minmax(0,1fr)}
+  .tbody{font-size:13px;padding:16px}
   .pipe{gap:10px 20px}
   .pipe span:not(:last-child)::after{width:20px}
   .irow{grid-template-columns:minmax(0,1fr) 64px;gap:8px 12px}
@@ -352,38 +662,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
   </div>
 
   <figure class="map" style="margin:0" aria-label="Diagram: data from CRM, PMS, FMS and Google Sheets flows through an automation hub into Power BI, MIS reports and AI follow-ups">
-    <svg id="flow" viewBox="0 0 460 360" role="img" aria-hidden="true">
-      <defs>
-        <path id="i1" d="M110 42 C150 42 150 180 175 180"/>
-        <path id="i2" d="M110 132 C150 132 150 180 175 180"/>
-        <path id="i3" d="M110 222 C150 222 150 180 175 180"/>
-        <path id="i4" d="M110 312 C150 312 150 180 175 180"/>
-        <path id="o1" d="M285 180 C310 180 310 72 350 72"/>
-        <path id="o2" d="M285 180 C315 180 320 180 350 180"/>
-        <path id="o3" d="M285 180 C310 180 310 288 350 288"/>
-      </defs>
-      <use href="#i1" class="wire"/><use href="#i2" class="wire"/><use href="#i3" class="wire"/><use href="#i4" class="wire"/>
-      <use href="#o1" class="wire out"/><use href="#o2" class="wire out"/><use href="#o3" class="wire out"/>
-      <use href="#i1" class="wire flow"/><use href="#i2" class="wire flow"/><use href="#i3" class="wire flow"/><use href="#i4" class="wire flow"/>
-      <use href="#o1" class="wire flow out"/><use href="#o2" class="wire flow out"/><use href="#o3" class="wire flow out"/>
-      <g id="packets"></g>
-      <g class="node"><rect x="4" y="20" width="106" height="44" rx="12"/><text x="57" y="47" text-anchor="middle">CRM</text></g>
-      <g class="node"><rect x="4" y="110" width="106" height="44" rx="12"/><text x="57" y="137" text-anchor="middle">PMS</text></g>
-      <g class="node"><rect x="4" y="200" width="106" height="44" rx="12"/><text x="57" y="227" text-anchor="middle">FMS</text></g>
-      <g class="node"><rect x="4" y="290" width="106" height="44" rx="12"/><text x="57" y="317" text-anchor="middle">Sheets</text></g>
-      <g class="hub">
-        <rect class="ring" x="175" y="118" width="110" height="124" rx="22"/>
-        <rect class="ring r2" x="175" y="118" width="110" height="124" rx="22"/>
-        <rect class="core" x="175" y="118" width="110" height="124" rx="22"/>
-        <text class="t1" x="230" y="166" text-anchor="middle">Automation</text>
-        <text class="t2" x="230" y="190" text-anchor="middle">Python</text>
-        <text class="t2" x="230" y="207" text-anchor="middle">Apps Script</text>
-        <text class="t2" x="230" y="224" text-anchor="middle">AI agents</text>
-      </g>
-      <g class="node out"><rect x="350" y="50" width="106" height="44" rx="12"/><text x="403" y="77" text-anchor="middle">Power BI</text></g>
-      <g class="node out"><rect x="350" y="158" width="106" height="44" rx="12"/><text x="403" y="185" text-anchor="middle">Reports</text></g>
-      <g class="node out"><rect x="350" y="266" width="106" height="44" rx="12"/><text x="403" y="293" text-anchor="middle">Follow-ups</text></g>
-    </svg>
+    <svg id="flow" data-flow="hero" role="img" aria-hidden="true"></svg>
     <figcaption class="cap"><span>Scattered tools in</span><b>Answers out, around the clock</b></figcaption>
   </figure>
 </header>
@@ -472,8 +751,12 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <h3>Warehouse inventory management system</h3>
         <p>A multi-warehouse stock system for Abhaya International. Staff log purchases, sales, returns and transfers through a web entry form, and every movement updates live stock by warehouse, SKU and batch on its own.</p>
         <div class="chips"><span class="chip">Google Apps Script</span><span class="chip">Google Sheets</span><span class="chip">HTML/JavaScript</span><span class="chip">Dashboards</span></div>
-        <div class="pipe" aria-label="How it works: entry form, master stock, history logs, admin dashboard">
-          <span>Entry form</span><span>Master stock</span><span>History logs</span><span>Admin dashboard</span>
+        <div class="ledger" id="ledger" aria-label="Animated example of the live stock ledger">
+          <div class="lhead"><span><i></i>Live stock</span><small>Sample numbers</small></div>
+          <div class="lrow"><span>Warehouse A</span><div class="lbar"><i></i></div><b>1,240</b></div>
+          <div class="lrow"><span>Warehouse B</span><div class="lbar"><i></i></div><b>860</b></div>
+          <div class="lrow"><span>Warehouse C</span><div class="lbar"><i></i></div><b>530</b></div>
+          <div class="feed" id="feed" aria-live="off"></div>
         </div>
       </div>
       <ul class="flist">
@@ -493,8 +776,94 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
     </div>
 
     <div class="pgrid" id="pgrid">
+      <article class="proj wide rv" data-cat="sys">
+        <div class="ptext">
+          <span class="pcat">Business systems</span>
+          <h3>Inventory management system</h3>
+          <p>A stock system that follows goods from the moment a truck arrives to the moment an order leaves, with real-time dashboards on every movement.</p>
+          <ul><li>Inbound and outbound stock logged as goods arrive and leave</li><li>Real-time dashboards tracking stock movement against key inventory metrics</li><li>Combined with the employee modules for centralised reporting</li></ul>
+          <div class="chips"><span class="chip">Google Apps Script</span><span class="chip">Google Sheets</span><span class="chip">Dashboards</span><span class="chip">Inventory KPIs</span></div>
+        </div>
+        <div class="pviz v-wh" aria-hidden="true">
+          <svg viewBox="0 0 520 230">
+            <rect class="road" x="0" y="196" width="520" height="30" rx="4"/>
+            <line class="lane" x1="0" y1="211" x2="520" y2="211"/>
+            <g class="truck tin">
+              <rect class="bed" x="0" y="148" width="70" height="8" rx="2"/>
+              <g class="cargo"><rect x="6" y="122" width="18" height="26" rx="2"/><rect x="26" y="122" width="18" height="26" rx="2"/><rect x="46" y="130" width="18" height="18" rx="2"/></g>
+              <path class="cab" d="M70 128 h14 l10 12 v24 h-24z"/><rect class="win" x="76" y="132" width="9" height="8" rx="1.5"/>
+              <rect class="chassis" x="0" y="156" width="94" height="8" rx="2"/>
+              <g class="wheel"><circle cx="16" cy="168" r="8"/><path d="M16 162v12M10 168h12"/></g>
+              <g class="wheel"><circle cx="50" cy="168" r="8"/><path d="M50 162v12M44 168h12"/></g>
+              <g class="wheel"><circle cx="82" cy="168" r="8"/><path d="M82 162v12M76 168h12"/></g>
+            </g>
+            <g class="truck tout">
+              <rect class="bed" x="0" y="148" width="70" height="8" rx="2"/>
+              <g class="cargo2"><rect x="10" y="126" width="22" height="22" rx="2"/><rect x="36" y="130" width="18" height="18" rx="2"/></g>
+              <path class="cab" d="M70 128 h14 l10 12 v24 h-24z"/><rect class="win" x="76" y="132" width="9" height="8" rx="1.5"/>
+              <rect class="chassis" x="0" y="156" width="94" height="8" rx="2"/>
+              <g class="wheel"><circle cx="16" cy="168" r="8"/><path d="M16 162v12M10 168h12"/></g>
+              <g class="wheel"><circle cx="50" cy="168" r="8"/><path d="M50 162v12M44 168h12"/></g>
+              <g class="wheel"><circle cx="82" cy="168" r="8"/><path d="M82 162v12M76 168h12"/></g>
+            </g>
+            <g class="bldg">
+              <polygon class="roof" points="182,84 270,40 358,84"/>
+              <text class="sign" x="270" y="74">Warehouse</text>
+              <rect class="body" x="192" y="84" width="156" height="112"/>
+              <rect class="door" x="244" y="124" width="52" height="72" rx="3"/>
+              <path class="shutter" d="M244 132h52M244 140h52M244 148h52"/>
+              <path class="shelf" d="M200 118h38M200 146h38M200 174h38M302 118h38M302 146h38M302 174h38"/>
+              <g class="stock in"><rect x="204" y="160" width="14" height="14" rx="2"/><rect x="220" y="160" width="14" height="14" rx="2"/><rect x="204" y="132" width="14" height="14" rx="2"/><rect x="220" y="132" width="14" height="14" rx="2"/><rect x="204" y="104" width="14" height="14" rx="2"/><rect x="220" y="104" width="14" height="14" rx="2"/></g>
+              <g class="stock base"><rect x="306" y="160" width="14" height="14" rx="2"/><rect x="322" y="160" width="14" height="14" rx="2"/><rect x="306" y="132" width="14" height="14" rx="2"/></g>
+              <g class="stock pick"><rect x="322" y="132" width="14" height="14" rx="2"/><rect x="306" y="104" width="14" height="14" rx="2"/></g>
+            </g>
+            <g class="badge b-in"><rect x="150" y="16" width="86" height="24" rx="12"/><text x="193" y="32">+6 stocked</text></g>
+            <g class="badge b-out"><rect x="370" y="16" width="96" height="24" rx="12"/><text x="418" y="32">Order shipped</text></g>
+          </svg>
+        </div>
+      </article>
       <article class="proj rv" data-cat="ai">
-        <div class="pico ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 16-5-5-8 8"/></svg></div>
+        <div class="pviz v-chat" aria-hidden="true"><div class="bq">Sales this week vs last?</div><div class="dots"><i></i><i></i><i></i></div><div class="ba"><i style="--w:92%"></i><i style="--w:76%"></i><i style="--w:54%"></i></div></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>LLM business assistant</h3>
+        <p>Assistants built on large language models that answer team questions, draft replies and summarise reports in plain language.</p>
+        <ul><li>Built on OpenAI and Gemini APIs</li><li>Reads from company sheets and reports</li><li>Drafts replies and report summaries in seconds</li></ul>
+        <div class="chips"><span class="chip">LLMs</span><span class="chip">OpenAI API</span><span class="chip">Gemini API</span><span class="chip">Python</span></div>
+      </article>
+      <article class="proj rv" data-cat="ai">
+        <div class="pviz v-rag" aria-hidden="true"><div class="docs"><div class="doc"><i></i><i></i><i class="hit"></i><i></i></div><div class="doc"><i></i><i class="hit"></i><i></i><i></i></div><div class="doc"><i></i><i></i><i></i><i class="hit"></i></div></div><div class="arrow"></div><div class="ans"><i style="--w:90%"></i><i style="--w:70%"></i><span class="src">SOP.pdf</span><span class="src s2">Policy.docx</span></div></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>RAG knowledge search</h3>
+        <p>Retrieval-augmented generation over company documents, so answers come from your own SOPs and records instead of guesses.</p>
+        <ul><li>Documents split into searchable chunks</li><li>Finds the most relevant passages for each question</li><li>Answers point back to the source document</li></ul>
+        <div class="chips"><span class="chip">RAG</span><span class="chip">Vector search</span><span class="chip">LLMs</span><span class="chip">Python</span></div>
+      </article>
+      <article class="proj span2 rv" data-cat="ai">
+        <div class="pviz v-agent" aria-hidden="true"><svg viewBox="0 0 560 150"><ellipse class="orbit" cx="280" cy="75" rx="200" ry="56"/><path id="agpath" class="agp" d="M280 19 A200 56 0 0 1 280 131 A200 56 0 0 1 280 19"/><circle class="runner" r="6"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#agpath"/></animateMotion></circle><g class="anode a0"><rect x="250" y="4" width="60" height="26" rx="9"/><text x="280" y="21">Email</text></g><g class="anode a1"><rect x="430" y="40" width="80" height="26" rx="9"/><text x="470" y="57">WhatsApp</text></g><g class="anode a2"><rect x="400" y="110" width="66" height="26" rx="9"/><text x="433" y="127">Sheets</text></g><g class="anode a3"><rect x="94" y="110" width="66" height="26" rx="9"/><text x="127" y="127">CRM</text></g><g class="anode a4"><rect x="50" y="40" width="80" height="26" rx="9"/><text x="90" y="57">Reports</text></g><g class="core"><rect x="230" y="52" width="100" height="46" rx="14"/><text x="280" y="72">AI agent</text><text class="sub" x="280" y="88">plan, act, check</text></g></svg></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>AI agents for follow-ups and workflows</h3>
+        <p>Agents that plan a task, use business tools like email, WhatsApp, sheets and the CRM, check the result and keep going around the clock.</p>
+        <ul><li>Run follow-ups and routine workflows without manual input</li><li>Use email, WhatsApp, Sheets and CRM as their tools</li><li>Cut response time by about 60% at Abhaya International</li></ul>
+        <div class="chips"><span class="chip">AI agents</span><span class="chip">LLMs</span><span class="chip">Apps Script</span><span class="chip">Python</span></div>
+      </article>
+      <article class="proj rv" data-cat="ai">
+        <div class="pviz v-aiemp" aria-hidden="true"><div class="who"><div class="face"><i></i><i></i></div><b>AI employee</b><span class="duty"><i></i>On duty 24/7</span></div><ul class="jobs"><li>Follow-up sent</li><li>Report updated</li><li>Lead assigned</li><li>Reminder sent</li></ul></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>AI employee</h3>
+        <p>A virtual team member built from AI agents that handles routine desk work every day, so people can focus on decisions.</p>
+        <ul><li>Works around the clock with no breaks or missed follow-ups</li><li>Handles follow-ups, report updates, lead assignment and reminders</li><li>Every action is logged so the team can review it</li></ul>
+        <div class="chips"><span class="chip">AI agents</span><span class="chip">LLMs</span><span class="chip">Apps Script</span><span class="chip">Automation</span></div>
+      </article>
+      <article class="proj rv" data-cat="ai">
+        <div class="pviz v-gears" aria-hidden="true"><span class="trig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Every day 9:00</span><svg class="gs" viewBox="0 0 120 70"><g class="g1"><circle cx="40" cy="35" r="20" class="teeth"/><circle cx="40" cy="35" r="13" class="hubc"/><circle cx="40" cy="35" r="4" class="pin"/></g><g class="g2"><circle cx="78" cy="30" r="13" class="teeth t2"/><circle cx="78" cy="30" r="8" class="hubc"/><circle cx="78" cy="30" r="3" class="pin"/></g></svg><div class="belt"><span>Sync</span><span>Report</span><span>Alert</span></div></div>
+        <span class="pcat">AI &amp; automation</span>
+        <h3>System automation</h3>
+        <p>Time and event triggers that sync systems, build reports and send alerts without anyone pressing a button.</p>
+        <ul><li>Scheduled and event-based triggers</li><li>Keeps CRM, PMS and FMS data in sync automatically</li><li>Recurring reports built and sent on time, about 40% faster</li></ul>
+        <div class="chips"><span class="chip">Apps Script triggers</span><span class="chip">Python</span><span class="chip">REST APIs</span></div>
+      </article>
+      <article class="proj rv" data-cat="ai">
+        <div class="pviz v-scan" aria-hidden="true"><div class="photo"><i class="sun"></i><i class="hill"></i><i class="beam"></i></div><span class="ai">AI</span><div class="sheet"><b></b><b></b><b></b><b></b></div><span class="mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Sent</span></div>
         <span class="pcat">AI &amp; automation</span>
         <h3>AI image-to-report automation</h3>
         <p>A Python tool that reads captured images with vision AI and turns them into structured reports, with no manual typing.</p>
@@ -502,7 +871,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <div class="chips"><span class="chip">Python</span><span class="chip">Vision AI APIs</span><span class="chip">SQL</span><span class="chip">Excel</span></div>
       </article>
       <article class="proj rv" data-cat="ai">
-        <div class="pico ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+        <div class="pviz v-kanban" aria-hidden="true"><div class="col"><small>Assigned</small></div><div class="col"><small>Pending</small><div class="pings"><span>WhatsApp</span><span>Email</span><span>Chat</span></div></div><div class="col"><small>Done</small></div><div class="tcard"><b>TASK-142</b><i>Due Fri</i></div></div>
         <span class="pcat">AI &amp; automation</span>
         <h3>Task delegation and follow-up system</h3>
         <p>Managers assign work in one place, and the system chases it until it is done.</p>
@@ -510,7 +879,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <div class="chips"><span class="chip">Apps Script</span><span class="chip">Google Sheets</span><span class="chip">Email alerts</span><span class="chip">WhatsApp</span></div>
       </article>
       <article class="proj rv" data-cat="sys">
-        <div class="pico sys"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4M17.5 10v4"/></svg></div>
+        <div class="pviz v-steps" aria-hidden="true"><span class="live"><i></i>Live status</span><div class="steps"><div class="line"><i></i></div><div class="st"><b></b><small>Plan</small></div><div class="st"><b></b><small>Approve</small></div><div class="st"><b></b><small>Execute</small></div><div class="st"><b></b><small>Account</small></div><div class="st"><b></b><small>Close</small></div></div></div>
         <span class="pcat">Business systems</span>
         <h3>Workflow management system (FMS)</h3>
         <p>An end-to-end workflow planning system connected to accounting, so work and money are tracked in the same place.</p>
@@ -518,7 +887,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <div class="chips"><span class="chip">Process design</span><span class="chip">Apps Script</span><span class="chip">Accounting</span></div>
       </article>
       <article class="proj rv" data-cat="sys">
-        <div class="pico sys"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 11h4M17 15h4M19 7h2"/></svg></div>
+        <div class="pviz v-tree" aria-hidden="true"><svg viewBox="0 0 300 120"><g class="edges"><path pathLength="1" d="M150 30 V44 H85 V58"/><path pathLength="1" d="M150 30 V44 H215 V58"/><path class="e2" pathLength="1" d="M85 78 V88 H50 V96"/><path class="e2" pathLength="1" d="M85 78 V88 H120 V96"/><path class="e2" pathLength="1" d="M215 78 V88 H180 V96"/><path class="e2" pathLength="1" d="M215 78 V88 H250 V96"/></g><g class="tn n0"><rect x="118" y="8" width="64" height="22" rx="7"/><text x="150" y="23">Head</text></g><g class="tn n1"><rect x="55" y="58" width="60" height="20" rx="7"/><text x="85" y="72">Sales</text></g><g class="tn n1"><rect x="185" y="58" width="60" height="20" rx="7"/><text x="215" y="72">Ops</text></g><g class="tl"><circle cx="50" cy="104" r="8"/><circle cx="120" cy="104" r="8"/><circle cx="180" cy="104" r="8"/><circle cx="250" cy="104" r="8"/></g></svg></div>
         <span class="pcat">Business systems</span>
         <h3>Employee management system</h3>
         <p>One employee master that every other system and report reads from, combined with the inventory modules for centralised reporting.</p>
@@ -526,7 +895,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <div class="chips"><span class="chip">Google Sheets</span><span class="chip">Apps Script</span><span class="chip">Reporting</span></div>
       </article>
       <article class="proj rv" data-cat="web">
-        <div class="pico web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4z"/><path d="M8 20h8M12 16v4"/><path d="M8 9h8M8 12h5"/></svg></div>
+        <div class="pviz v-form" aria-hidden="true"><div class="form"><span class="f"><i></i></span><span class="f"><i></i></span><span class="btn2">Submit</span></div><div class="rows"><div class="r new"><b>10:42</b>New lead<em>Sales</em></div><div class="r"><b>10:31</b>Website<em>Sales</em></div><div class="r"><b>10:18</b>Call<em>Sales</em></div></div></div>
         <span class="pcat">Web apps</span>
         <h3>Serverless lead management system</h3>
         <p>Leads arrived from many channels with no single log or owner. Now every lead lands in one place with a timestamp and an owner.</p>
@@ -534,7 +903,7 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
         <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span><span class="chip">Apps Script</span><span class="chip">0 servers</span></div>
       </article>
       <article class="proj rv" data-cat="web">
-        <div class="pico web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></div>
+        <div class="pviz v-code" aria-hidden="true"><div class="code"><i style="--w:60%"></i><i style="--w:82%" class="c2"></i><i style="--w:45%" class="c3"></i><i style="--w:70%" class="c2"></i><i style="--w:38%"></i></div><div class="win"><div class="wb"><s></s><s></s><s></s></div><div class="wbody"><span class="side"></span><span class="k k1"></span><span class="k k2"></span><span class="k k3"></span></div></div></div>
         <span class="pcat">Web apps</span>
         <h3>Custom web CRM and ERP tools</h3>
         <p>Lightweight business apps built in-house to replace paid third-party software licences.</p>
@@ -550,20 +919,26 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
   </section>
 
   <section class="sec" id="skills" aria-labelledby="skills-h">
-    <div class="two">
-      <div>
-        <div class="head rv"><h2 id="skills-h">Skills</h2></div>
-        <dl class="skills rv">
-          <div><dt>Automation &amp; AI</dt><dd>Google Apps Script, Python automation, workflow and process-flow automation, AI agents, AI platforms, LLM &amp; RAG</dd></div>
-          <div><dt>BI &amp; reporting</dt><dd>Power BI (DAX, Power Query, data modeling), Advanced Excel, MIS reporting and operations, KPI dashboards, data storytelling</dd></div>
-          <div><dt>Data analysis</dt><dd>SQL, MySQL, Python (Pandas), exploratory and statistical analysis, data cleaning, ETL</dd></div>
-          <div><dt>Business analysis</dt><dd>Process mapping and optimization, KPI definition, reporting requirements, SOP development, stakeholder management</dd></div>
-          <div class="full"><dt>Full stack &amp; systems</dt><dd>System design and implementation, full-stack web application development (JavaScript, HTML/CSS), Java, C++, Zoho CRM, Zoho Inventory, CRM / PMS / FMS integration</dd></div>
-          <div><dt>Security</dt><dd>Data privacy and security, network and firewall security, IT infrastructure</dd></div>
-          <div><dt>Leadership</dt><dd>Team leadership, operations management, problem solving, communication, training 200+ people</dd></div>
-        </dl>
+    <div class="head rv"><h2 id="skills-h">Skills</h2><p>Seven areas that connect into one job: turning a business process into a system that runs itself. Pick an area to see the tools.</p></div>
+    <div class="term rv">
+      <div class="tabs" id="stabs" role="tablist" aria-label="Skill areas"></div>
+      <div class="tw">
+        <div class="tbar"><s></s><s></s><s></s><span>saurabh@portfolio: ~/skills</span></div>
+        <div class="tbody" id="tbody" aria-live="polite"></div>
+        <div class="panels" id="spanels">
+          <div class="spanel" data-k="Automation &amp; AI"><h3>Automation &amp; AI</h3><p>Systems that do the follow-ups, reports and routine work on their own.</p><div class="schips"><span>Google Apps Script</span><span>Python automation</span><span>Workflow automation</span><span>Process-flow automation</span><span>AI agents</span><span>AI platforms</span><span>LLM &amp; RAG</span><span>OpenAI and Gemini APIs</span><span>WhatsApp, Email and Chat alerts</span></div></div>
+          <div class="spanel" data-k="BI &amp; reporting"><h3>BI &amp; reporting</h3><p>Dashboards and MIS reports that department heads actually read.</p><div class="schips"><span>Power BI</span><span>DAX</span><span>Power Query</span><span>Data modeling</span><span>Advanced Excel</span><span>Google Looker Studio</span><span>MIS reporting and operations</span><span>KPI dashboards</span><span>Data storytelling</span></div></div>
+          <div class="spanel" data-k="Data analysis"><h3>Data analysis</h3><p>Cleaning, joining and questioning data until it gives a clear answer.</p><div class="schips"><span>SQL</span><span>MySQL</span><span>CTEs and window functions</span><span>Python (Pandas)</span><span>Exploratory analysis</span><span>Statistical analysis</span><span>Data cleaning</span><span>ETL</span></div></div>
+          <div class="spanel" data-k="Business analysis"><h3>Business analysis</h3><p>Understanding how a team really works before anything gets built.</p><div class="schips"><span>Process mapping</span><span>Process optimization</span><span>KPI definition</span><span>Reporting requirements</span><span>SOP development</span><span>Stakeholder management</span></div></div>
+          <div class="spanel" data-k="Full stack"><h3>Full stack &amp; systems</h3><p>Designing and building the apps and integrations end to end.</p><div class="schips"><span>System design and implementation</span><span>Full-stack web apps</span><span>JavaScript</span><span>HTML/CSS</span><span>REST APIs and JSON</span><span>Java</span><span>C++</span><span>Zoho CRM</span><span>Zoho Inventory</span><span>CRM / PMS / FMS integration</span></div></div>
+          <div class="spanel" data-k="Security"><h3>Security</h3><p>Keeping business data and the network behind it safe.</p><div class="schips"><span>Data privacy and security</span><span>Network security</span><span>Firewall configuration</span><span>IT infrastructure</span></div></div>
+          <div class="spanel" data-k="Leadership"><h3>Leadership</h3><p>Leading the team and training the people who use the systems.</p><div class="schips"><span>Team leadership</span><span>Operations management</span><span>Problem solving</span><span>Communication</span><span>Training 200+ people</span><span>Mentoring</span></div></div>
+        </div>
       </div>
-      <div class="side rv">
+    </div>
+
+    <div class="two certrow">
+      <div class="rv">
         <div class="head"><h2>Certifications</h2></div>
         <ul class="certs">
           <li><span>Advance Excel &amp; Power BI</span><span class="iss">Microsoft</span></li>
@@ -572,7 +947,11 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
           <li><span>Google Workspace</span><span class="iss">Google</span></li>
           <li><span>Computer Networking &amp; Web Development</span><span class="iss">Net Camp Solution</span></li>
         </ul>
-        <div class="edu"><b>Education</b><p>MBA, Information Technology</p><p>B.Tech, Information Technology (2016), Dr. A.P.J. Abdul Kalam Technical University</p></div>
+      </div>
+      <div class="rv">
+        <div class="head"><h2>Education</h2></div>
+        <div class="edu"><b>MBA, Information Technology</b><p>Dr. A.P.J. Abdul Kalam Technical University</p></div>
+        <div class="edu"><b>B.Tech, Information Technology (2016)</b><p>Dr. A.P.J. Abdul Kalam Technical University</p></div>
       </div>
     </div>
   </section>
@@ -635,29 +1014,140 @@ footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255
     setTimeout(step,2600);
   }
 
-  /* Data packets along the pipeline */
-  const svg=document.getElementById('flow');
-  const g=document.getElementById('packets');
+  /* Animated flow diagrams */
   const NS='http://www.w3.org/2000/svg';
-  const routes=[['i1',0],['i2',.5],['i3',1],['i4',1.5],['o1',1.2],['o2',1.7],['o3',2.2]];
-  routes.forEach(([id,delay])=>{
-    for(let k=0;k<2;k++){
-      const c=document.createElementNS(NS,'circle');
-      c.setAttribute('r','5');
-      c.setAttribute('class','pk'+(id[0]==='o'?' out':''));
-      const m=document.createElementNS(NS,'animateMotion');
-      m.setAttribute('dur','2.4s');
-      m.setAttribute('repeatCount','indefinite');
-      m.setAttribute('begin',(delay+k*1.2)+'s');
-      m.setAttribute('keyPoints','0;1');m.setAttribute('keyTimes','0;1');m.setAttribute('calcMode','spline');m.setAttribute('keySplines','.4 0 .2 1');
-      const mp=document.createElementNS(NS,'mpath');
-      mp.setAttribute('href','#'+id);
-      m.appendChild(mp);c.appendChild(m);
-      c.setAttribute('cx','-20');c.setAttribute('cy','-20');
-      g.appendChild(c);
+  const mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+  let uid=0;
+  const allSvgs=[];
+  const packet=(layer,pathId,cls,begin,r,dur)=>{
+    const c=mk('circle',{r:r,class:cls,opacity:0},layer);
+    mk('set',{attributeName:'opacity',to:'1',begin:begin},c);
+    const m=mk('animateMotion',{dur:dur||'2.4s',repeatCount:'indefinite',begin:begin,calcMode:'spline',keyPoints:'0;1',keyTimes:'0;1',keySplines:'.4 0 .2 1'},c);
+    mk('mpath',{href:'#'+pathId},m);
+  };
+  const buildFlow=(svg,f)=>{
+    const W=f.W,H=f.H,cx=W/2,cy=H/2,hx=cx-f.hw/2,hy=cy-f.hh/2;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.style.setProperty('--nf',f.nf+'px');svg.style.setProperty('--t1',f.t1+'px');svg.style.setProperty('--t2',f.t2+'px');
+    const wires=mk('g',{},svg),pk=mk('g',{},svg),nodes=mk('g',{},svg);
+    const paths=[];
+    [['in',f.ins],['out',f.outs]].forEach(([side,list])=>{
+      list.forEach((label,i)=>{
+        const y=H*(i+.5)/list.length,x=side==='in'?2:W-f.nw-2;
+        const g=mk('g',{class:'node'+(side==='out'?' out':'')},nodes);
+        mk('rect',{x:x,y:y-f.nh/2,width:f.nw,height:f.nh,rx:Math.min(12,f.nh/3)},g);
+        mk('text',{x:x+f.nw/2,y:y+f.nf*.36,'text-anchor':'middle'},g).textContent=label;
+        const x1=side==='in'?x+f.nw:hx+f.hw,x2=side==='in'?hx:x,y1=side==='in'?y:cy,y2=side==='in'?cy:y,mx=(x1+x2)/2;
+        const d='M'+x1+' '+y1+' C'+mx+' '+y1+' '+mx+' '+y2+' '+x2+' '+y2;
+        const id='fp'+(uid++),o=side==='out'?' out':'';
+        mk('path',{id:id,d:d,class:'wire'+o},wires);
+        mk('path',{d:d,class:'wire flow'+o},wires);
+        paths.push({id:id,side:side,i:i});
+      });
+    });
+    const hg=mk('g',{class:'hub'},nodes),rx=Math.min(22,f.hh/3.2);
+    mk('rect',{class:'ring',x:hx,y:hy,width:f.hw,height:f.hh,rx:rx},hg);
+    mk('rect',{class:'ring r2',x:hx,y:hy,width:f.hw,height:f.hh,rx:rx},hg);
+    mk('rect',{class:'core',x:hx,y:hy,width:f.hw,height:f.hh,rx:rx},hg);
+    const lines=[f.hub].concat(f.sub||[]),lh=f.t2*1.4,gap=f.t1*.5;
+    const total=f.t1*.75+(lines.length>1?gap+(lines.length-1)*lh:0);
+    const y0=cy-total/2+f.t1*.75;
+    lines.forEach((l,i)=>{const y=i===0?y0:y0+gap+i*lh;mk('text',{class:i?'t2':'t1',x:cx,y:y.toFixed(1),'text-anchor':'middle'},hg).textContent=l;});
+    paths.forEach(p=>{for(let j=0;j<(f.pk||1);j++){
+      packet(pk,p.id,'pk'+(p.side==='out'?' out':''),((p.side==='out'?1.2:0)+p.i*.45+j*1.2).toFixed(2)+'s',f.pr||5);
+    }});
+    allSvgs.push(svg);
+  };
+  const flows={
+    hero:{W:460,H:360,nw:106,nh:44,hw:112,hh:126,nf:15,t1:17,t2:12.5,pk:2,pr:5,ins:['CRM','PMS','FMS','Sheets'],hub:'Automation',sub:['Python','Apps Script','AI agents'],outs:['Power BI','Reports','Follow-ups']}
+  };
+  document.querySelectorAll('svg[data-flow]').forEach(svg=>{const f=flows[svg.dataset.flow];if(f)buildFlow(svg,f);});
+
+  /* Featured: live stock ledger */
+  {
+    const rows=[...document.querySelectorAll('#ledger .lrow')];
+    const feed=document.getElementById('feed');
+    const stock=[1240,860,530],MAX=1600,names=['A','B','C'];
+    const fmtN=n=>n.toLocaleString('en-IN');
+    const paint=(i,dir)=>{
+      const r=rows[i],b=r.querySelector('b');
+      r.querySelector('.lbar i').style.setProperty('--w',(stock[i]/MAX*100).toFixed(1)+'%');
+      b.textContent=fmtN(stock[i]);
+      if(dir){b.className=dir;r.classList.add('flash');setTimeout(()=>{b.className='';r.classList.remove('flash');},900);}
+    };
+    stock.forEach((_,i)=>paint(i));
+    const events=[
+      {c:'in',t:'Purchase',msg:'+40 units into Warehouse A',fx:()=>{stock[0]+=40;paint(0,'up');}},
+      {c:'out',t:'Sale',msg:'12 units out of Warehouse B',fx:()=>{stock[1]-=12;paint(1,'down');}},
+      {c:'tr',t:'Transfer',msg:'25 units A to C, pending',fx:()=>{stock[0]-=25;paint(0,'down');}},
+      {c:'dmg',t:'Damage',msg:'2 units in B moved to damaged',fx:()=>{stock[1]-=2;paint(1,'down');}},
+      {c:'tr',t:'Received',msg:'C confirmed 25 units from A',fx:()=>{stock[2]+=25;paint(2,'up');}},
+      {c:'out',t:'Sale',msg:'30 units out of Warehouse C',fx:()=>{stock[2]-=30;paint(2,'down');}},
+      {c:'in',t:'Return',msg:'+5 units back into Warehouse B',fx:()=>{stock[1]+=5;paint(1,'up');}}
+    ];
+    let k=0,timer=null;
+    const tick=()=>{
+      const e=events[k%events.length];k++;
+      e.fx();
+      const d=document.createElement('div');d.className='ev '+e.c;
+      const tag=document.createElement('b');tag.textContent=e.t;
+      d.appendChild(tag);d.appendChild(document.createTextNode(e.msg));
+      feed.prepend(d);
+      while(feed.children.length>3)feed.lastChild.remove();
+      if(k%events.length===0){stock.splice(0,3,1240,860,530);stock.forEach((_,i)=>paint(i));}
+    };
+    tick();
+    if(!reduce){
+      new IntersectionObserver(es=>es.forEach(en=>{
+        if(en.isIntersecting&&!timer)timer=setInterval(tick,2000);
+        else if(!en.isIntersecting&&timer){clearInterval(timer);timer=null;}
+      }),{threshold:.2}).observe(document.getElementById('ledger'));
     }
-  });
-  if(reduce&&svg.pauseAnimations)svg.pauseAnimations();
+  }
+
+  /* Skills terminal */
+  {
+    const term=document.querySelector('.term');
+    const panels=[...document.querySelectorAll('.spanel')];
+    const tabs=document.getElementById('stabs');
+    const body=document.getElementById('tbody');
+    const data=panels.map(p=>({k:p.dataset.k,d:p.querySelector('p').textContent,tools:[...p.querySelectorAll('.schips span')].map(x=>x.textContent)}));
+    const btns=data.map((d,i)=>{
+      const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');
+      b.textContent=d.k;const c=document.createElement('span');c.textContent=d.tools.length;b.appendChild(c);
+      tabs.appendChild(b);return b;
+    });
+    term.classList.add('ready');
+    let run=0,cur=-1,auto=null;
+    const wait=ms=>new Promise(r=>setTimeout(r,ms));
+    const show=async i=>{
+      cur=i;const me=++run;const d=data[i];
+      btns.forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i?'true':'false');});
+      body.textContent='';
+      const cmd=document.createElement('div');cmd.className='cmd';body.appendChild(cmd);
+      const full='skills --area "'+d.k+'"';
+      if(reduce){cmd.textContent='$ '+full;}
+      else{
+        for(let c=0;c<=full.length;c++){if(me!==run)return;cmd.textContent='$ '+full.slice(0,c);const car=document.createElement('i');car.className='car';cmd.appendChild(car);await wait(22);}
+        cmd.querySelector('.car')&&cmd.querySelector('.car').remove();
+      }
+      const desc=document.createElement('div');desc.className='desc';desc.textContent='# '+d.d;body.appendChild(desc);
+      const out=document.createElement('div');out.className='out';body.appendChild(out);
+      for(const t of d.tools){if(me!==run)return;const r=document.createElement('div');r.textContent=t;out.appendChild(r);if(!reduce)await wait(70);}
+      const sum=document.createElement('div');sum.className='sum';sum.textContent=d.tools.length+' tools ready ';
+      const car=document.createElement('i');car.className='car';sum.appendChild(car);body.appendChild(sum);
+    };
+    const stop=()=>{term.dataset.stop='1';clearInterval(auto);auto=null;};
+    btns.forEach((b,i)=>b.addEventListener('click',()=>{stop();show(i);}));
+    show(0);
+    if(!reduce){
+      new IntersectionObserver(es=>es.forEach(en=>{
+        if(en.isIntersecting&&!auto&&!term.dataset.stop)auto=setInterval(()=>show((cur+1)%data.length),5200);
+        else if(!en.isIntersecting&&auto){clearInterval(auto);auto=null;}
+      }),{threshold:.3}).observe(term);
+    }
+  }
+  if(reduce)document.querySelectorAll('svg').forEach(v=>v.pauseAnimations&&v.pauseAnimations());
 
   /* Tool ticker */
   const tools=['Power BI','Python','Google Apps Script','SQL','Zoho CRM','AI agents','LLM & RAG','Advanced Excel','JavaScript','Pandas','Zoho Inventory','Process mapping'];
